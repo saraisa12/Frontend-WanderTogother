@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { RegisterUser } from "../../services/Auth"
 import { useNavigate } from "react-router-dom"
+import "./Register.css"
 
 const Register = () => {
   let navigate = useNavigate()
@@ -34,10 +35,10 @@ const Register = () => {
   }
 
   return (
-    <div className="signin col">
-      <div className="card-overlay centered">
-        <form className="col" onSubmit={handleSubmit}>
-          <div className="input-wrapper">
+    <div className="signup_col">
+      <div className="card-overlay_centered">
+        <form className="cool" onSubmit={handleSubmit}>
+          <div className="input-wrapper-2">
             <label htmlFor="name">Name</label>
             <input
               onChange={handleChange}
@@ -48,7 +49,7 @@ const Register = () => {
               required
             />
           </div>
-          <div className="input-wrapper">
+          <div className="input-wrapper-2">
             <label htmlFor="email">Email</label>
             <input
               onChange={handleChange}
@@ -60,22 +61,24 @@ const Register = () => {
             />
           </div>
 
-          <div className="input-wrapper">
+          <div className="input-wrapper-2">
             <label htmlFor="password">Password</label>
             <input
               onChange={handleChange}
               type="password"
               name="password"
+              placeholder="Password"
               value={formValues.password}
               required
             />
           </div>
-          <div className="input-wrapper">
+          <div className="input-wrapper-2">
             <label htmlFor="confirmPassword">Confirm Password</label>
             <input
               onChange={handleChange}
               type="password"
               name="confirmPassword"
+              placeholder="Confirm Password"
               value={formValues.confirmPassword}
               required
             />
@@ -86,9 +89,13 @@ const Register = () => {
               (!formValues.password &&
                 formValues.confirmPassword === formValues.password)
             }
+            className="Register"
           >
-            Sign In
+            REGISTER
           </button>
+          <div className="SignUp">
+            <h5>LOGIN</h5>
+          </div>
         </form>
       </div>
     </div>

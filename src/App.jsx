@@ -1,17 +1,18 @@
-import "./App.css"
-import { Route, Routes } from "react-router"
-import Nav from "./components/Nav/Nav"
-import Register from "./pages/Register/Register"
-import SignIn from "./pages/SignIn/SignIn"
-import Home from "./pages/Home/Home"
-import { CheckSession } from "./services/Auth"
-import { useState, useEffect } from "react"
+import './App.css'
+import { Route, Routes } from 'react-router'
+import Nav from './components/Nav/Nav'
+import Register from './pages/Register/Register'
+import SignIn from './pages/SignIn/SignIn'
+import Home from './pages/Home/Home'
+import ActivityPage from './components/activity/ActivityPage' // Import ActivityPage
+import { CheckSession } from './services/Auth'
+import { useState, useEffect } from 'react'
 
-const App = () => {
+function App() {
   const [user, setUser] = useState(null)
 
   const handleLogOut = () => {
-    //Reset all auth related state and clear localStorage
+    // Reset all auth-related state and clear localStorage
     setUser(null)
     localStorage.clear()
   }
@@ -22,7 +23,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem('token')
     // Check if token exists before requesting to validate the token
     if (token) {
       checkToken()
@@ -38,6 +39,8 @@ const App = () => {
           <Route path="/" element={<Home user={user} />} />
           <Route path="/signin" element={<SignIn setUser={setUser} />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/activities" element={<ActivityPage />} />{' '}
+          {/* New route for activities */}
         </Routes>
       </main>
     </div>

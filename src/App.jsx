@@ -46,7 +46,10 @@ const App = () => {
           <Route path="/add/trip" element={<AddTrip />} />
           <Route path="/list/trips" element={<ListTrips />} />
 
-          <Route path="/trip/details/:id" element={<DetailsTrip />} />
+          <Route
+            path="/trip/details/:id"
+            element={<DetailsTrip user={user} />}
+          />
         </Routes>
       </main>
     </div>

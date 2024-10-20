@@ -1,23 +1,33 @@
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import Client from "../../services/api" // Import the Client instance
+import Client from "../../services/api"
+import InviteUserForm from "../InviteUserForm/InviteUserForm"
 
-const DetailsTrip = () => {
+const DetailsTrip = ({ user }) => {
   const { id } = useParams()
-
   const [tripDetails, setTripDetails] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [isCreator, setIsCreator] = useState(false)
 
   useEffect(() => {
     const getTripDetails = async () => {
-      try {
-        // Use the Client instance to fetch trip details
-        const response = await Client.get(`/trip/details/${id}`)
+      if (!user) {
+        // If user is not defined yet, do not proceed
+        return
+      }
 
+      try {
+        const response = await Client.get(`/trip/details/${id}`)
         setTripDetails(response.data)
 
-        console.log(response.data)
+        const userId = response.data.creator
+        const loggedInUserId = user.id
+
+        console.log(userId)
+        console.log(loggedInUserId)
+
+        setIsCreator(userId === loggedInUserId) // Compare IDs
       } catch (err) {
         setError(err.response?.data?.message || "Failed to fetch trip details")
       } finally {
@@ -26,7 +36,7 @@ const DetailsTrip = () => {
     }
 
     getTripDetails()
-  }, [id])
+  }, [id, user]) // Adding user as a dependency
 
   if (loading) return <p>Loading...</p>
   if (error) return <p>{error}</p>
@@ -47,6 +57,12 @@ const DetailsTrip = () => {
             <strong>End Date:</strong>{" "}
             {new Date(tripDetails.endDate).toLocaleDateString()}
           </p>
+          <p>
+            <strong>Location:</strong> {tripDetails.location}
+          </p>
+
+          {/* Show the invite form only if the user is the creator */}
+          {isCreator && <InviteUserForm tripId={id} />}
         </div>
       ) : (
         <p>Trip details not found.</p>

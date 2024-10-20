@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { SignInUser } from "../../services/Auth"
 import { useNavigate } from "react-router-dom"
+import "./SignIn.css"
 
 const SignIn = ({ setUser }) => {
   let navigate = useNavigate()
@@ -22,11 +23,12 @@ const SignIn = ({ setUser }) => {
   }
 
   return (
-    <div className="signin col">
-      <div className="card-overlay centered">
+    <div className="signin_col">
+      <div className="card-overlay-centered">
         <form className="col" onSubmit={handleSubmit}>
           <div className="input-wrapper">
             <label htmlFor="email">Email</label>
+            <br />
             <input
               onChange={handleChange}
               name="email"
@@ -38,17 +40,28 @@ const SignIn = ({ setUser }) => {
           </div>
           <div className="input-wrapper">
             <label htmlFor="password">Password</label>
+            <br />
             <input
               onChange={handleChange}
               type="password"
               name="password"
+              placeholder="Password"
               value={formValues.password}
               required
             />
           </div>
-          <button disabled={!formValues.email || !formValues.password}>
-            Sign In
+          <button
+            disabled={!formValues.email || !formValues.password}
+            className="SignIn_btn"
+          >
+            SIGN IN
           </button>
+          <div className="SignUp">
+            <h5>
+              Don't have an account?
+              <br /> Sign Up now
+            </h5>
+          </div>
         </form>
       </div>
     </div>

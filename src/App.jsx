@@ -9,6 +9,7 @@ import { useState, useEffect } from "react"
 import AddTrip from "./components/AddTrip/AddTrip"
 import ListTrips from "./components/ListTrips/ListTrips"
 import DetailsTrip from "./components/DetailsTrip/DetailsTrip"
+import { useNavigate } from "react-router-dom"
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -27,6 +28,7 @@ const App = () => {
   useEffect(() => {
     const token = localStorage.getItem("token")
     // Check if token exists before requesting to validate the token
+
     if (token) {
       checkToken()
     }

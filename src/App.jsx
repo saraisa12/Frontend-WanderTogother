@@ -6,6 +6,9 @@ import SignIn from "./pages/SignIn/SignIn"
 import Home from "./pages/Home/Home"
 import { CheckSession } from "./services/Auth"
 import { useState, useEffect } from "react"
+import AddTrip from "./components/AddTrip/AddTrip"
+import ListTrips from "./components/ListTrips/ListTrips"
+import DetailsTrip from "./components/DetailsTrip/DetailsTrip"
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -38,6 +41,10 @@ const App = () => {
           <Route path="/" element={<Home user={user} />} />
           <Route path="/signin" element={<SignIn setUser={setUser} />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/add/trip" element={<AddTrip />} />
+          <Route path="/list/trips" element={<ListTrips />} />
+
+          <Route path="/trip/details/:id" element={<DetailsTrip />} />
         </Routes>
       </main>
     </div>

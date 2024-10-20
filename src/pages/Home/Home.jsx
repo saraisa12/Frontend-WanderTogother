@@ -1,12 +1,20 @@
-// Home.js
-import React from "react"
+import React from 'react'
+import './Home.css'
 
-const Home = ({ user }) => {
-  console.log(user)
-  return user ? (
-    <h3>hello</h3>
-  ) : (
-    <h3>Oops! You must be signed in to do that!</h3>
+const Home = () => {
+  return (
+    <div className="home-container">
+      <section className="hero-section">
+        <img />
+        <div className="hero-overlay">
+          <h1 className="hero-title">Unified Exploration</h1>
+          <p className="hero-subtitle">
+            Where every adventure begins with your crew by your side!
+          </p>
+          <button className="start-planning-btn">Start Planning</button>
+        </div>
+      </section>
+    </div>
   )
 }
 

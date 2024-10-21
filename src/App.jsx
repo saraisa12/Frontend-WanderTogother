@@ -14,6 +14,7 @@ import EditActivity from './components/EditActivity/EditActivity'
 import { CheckSession } from './services/Auth'
 import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
+import AcceptInvite from "./components/AcceptInvite/AcceptInvite"
 
 
 const App = () => {
@@ -47,11 +48,23 @@ const App = () => {
           <Route path="/signin" element={<SignIn setUser={setUser} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/add/trip" element={<AddTrip />} />
+          <Route path="/list/trips" element={<ListTrips user={user} />} />
           <Route path="/list/trips" element={<ListTrips />} />
-          <Route path="/trip/details/:id" element={<DetailsTrip />} />
+
+          <Route
+            path="/trip/details/:id"
+            element={<DetailsTrip user={user} />}
+          />
+
+          <Route
+            path="/invite/accept/:inviteId"
+            element={<AcceptInvite handleLogOut={handleLogOut} />}
+          />
+
           <Route path="/add/activity" element={<AddActivity />} />
           <Route path="/list/activities" element={<ListActivities />} />
           <Route path="/edit/activity/:id" element={<EditActivity />} />{' '}
+
         </Routes>
       </main>
     </div>

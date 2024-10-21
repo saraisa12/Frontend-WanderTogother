@@ -6,27 +6,30 @@ const DetailsTrip = () => {
   const { id } = useParams()
 
   const [tripDetails, setTripDetails] = useState(null)
-  const [invites, setInvites] = useState([]) // State to hold invites
+  const [invites, setInvites] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [inviteEmail, setInviteEmail] = useState("")
+  const [inviteMessage, setInviteMessage] = useState(null)
 
   useEffect(() => {
     const getTripDetails = async () => {
       try {
-        // Fetch trip details
         const response = await Client.get(`/trip/details/${id}`)
         setTripDetails(response.data)
       } catch (err) {
         setError(err.response?.data?.message || "Failed to fetch trip details")
+      } finally {
+        setLoading(false)
       }
     }
 
     const getInvites = async () => {
       try {
-        // Fetch invites associated with the trip
         const response = await Client.get(`/invite/list/${id}`)
         setInvites(response.data.invites)
-        console.log("invites", response)
       } catch (err) {
-        setError(err.response?.data?.message || "Failed to fetch invites")
+        console.error("Error fetching invites:", err)
       }
     }
 
@@ -34,17 +37,40 @@ const DetailsTrip = () => {
     getInvites()
   }, [id])
 
-  const handleDeleteInvite = async (inviteId) => {
+  const handleSendInvite = async () => {
     try {
-      // Call the delete invite API
-      await Client.delete(`/invite/delete/${inviteId}`)
-      // Remove the deleted invite from the state
-      setInvites(invites.filter((invite) => invite._id !== inviteId))
-    } catch (err) {
-      console.error("Failed to delete invite:", err)
-      setError(err.response?.data?.message || "Failed to delete invite")
+      const response = await Client.post(`/invite/add`, {
+        tripId: id,
+        email: inviteEmail,
+      })
+      setInviteMessage(response.data.message)
+      setInviteEmail("") // Clear the input after sending
+
+      // Refresh the invites list to show the new invite
+      const updatedInvites = await Client.get(`/invite/list/${id}`)
+      setInvites(updatedInvites.data.invites)
+    } catch (error) {
+      setInviteMessage(error.response?.data?.message || "Failed to send invite")
     }
   }
+
+  const handleDeleteInvite = async (inviteId) => {
+    try {
+      await Client.delete(`/invite/delete/${inviteId}`)
+      setInviteMessage("Invite deleted successfully")
+
+      // Refresh the invites list after deletion
+      const updatedInvites = await Client.get(`/invite/list/${id}`)
+      setInvites(updatedInvites.data.invites)
+    } catch (error) {
+      setInviteMessage(
+        error.response?.data?.message || "Failed to delete invite"
+      )
+    }
+  }
+
+  if (loading) return <p>Loading...</p>
+  if (error) return <p>{error}</p>
 
   return (
     <div>
@@ -63,21 +89,40 @@ const DetailsTrip = () => {
             {new Date(tripDetails.endDate).toLocaleDateString()}
           </p>
 
-          <h3>Invites:</h3>
-          {invites.length > 0 ? (
-            <ul>
-              {invites.map((invite) => (
-                <li key={invite._id}>
-                  {invite.invitee.email} - Status: {invite.status}
-                  <button onClick={() => handleDeleteInvite(invite._id)}>
-                    Delete
-                  </button>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No invites for this trip.</p>
-          )}
+          {/* Form to send an invite */}
+          <div>
+            <h3>Invite a User</h3>
+            <input
+              type="email"
+              value={inviteEmail}
+              onChange={(e) => setInviteEmail(e.target.value)}
+              placeholder="Enter invitee's email"
+            />
+            <button onClick={handleSendInvite}>Send Invite</button>
+          </div>
+
+          {/* Display invite message */}
+          {inviteMessage && <p>{inviteMessage}</p>}
+
+          {/* List of invites */}
+          <div>
+            <h3>Invites</h3>
+            {invites.length > 0 ? (
+              <ul>
+                {invites.map((invite) => (
+                  <li key={invite._id}>
+                    {invite.invitee.email} - {invite.status} - Invited on:{" "}
+                    {new Date(invite.invitedAt).toLocaleDateString()}
+                    <button onClick={() => handleDeleteInvite(invite._id)}>
+                      Delete Invite
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>No invites yet.</p>
+            )}
+          </div>
         </div>
       ) : (
         <p>Trip details not found.</p>

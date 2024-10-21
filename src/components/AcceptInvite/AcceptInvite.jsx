@@ -26,7 +26,6 @@ const AcceptInvite = ({ handleLogOut }) => {
       //   return
       // }
 
-      // If no token exists, redirect to the sign-in page
       if (!token) {
         console.log("No token found, redirecting to login")
         navigate(`/signin?redirect=/invite/accept/${inviteId}`)
@@ -76,6 +75,7 @@ const AcceptInvite = ({ handleLogOut }) => {
         { headers: { Authorization: `Bearer ${token}` } }
       )
       alert("Invite status updated successfully!")
+      navigate("/list/trips")
     } catch (error) {
       alert("Failed to update the invite status.")
     }

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import Client from "../../services/api" // Import the Client instance
+import Client from "../../services/api"
+import Overview from "../overview/Overview"
+import ManageUsers from "../ManageUsers/ManageUsers"
+import InviteModal from "../InviteModal/InviteModal"
 
 const DetailsTrip = ({ user }) => {
   const { id } = useParams()
@@ -11,6 +14,8 @@ const DetailsTrip = ({ user }) => {
   const [error, setError] = useState(null)
   const [inviteEmail, setInviteEmail] = useState("")
   const [inviteMessage, setInviteMessage] = useState(null)
+  const [activeTab, setActiveTab] = useState("overview") // Default to "Overview" tab
+  const [isInviteModalOpen, setInviteModalOpen] = useState(false) // Control the modal visibility
 
   useEffect(() => {
     const getTripDetails = async () => {
@@ -77,53 +82,44 @@ const DetailsTrip = ({ user }) => {
       {tripDetails ? (
         <div>
           <h2>{tripDetails.title}</h2>
-          <p>
-            <strong>Description:</strong> {tripDetails.description}
-          </p>
-          <p>
-            <strong>Start Date:</strong>{" "}
-            {new Date(tripDetails.startDate).toLocaleDateString()}
-          </p>
-          <p>
-            <strong>End Date:</strong>{" "}
-            {new Date(tripDetails.endDate).toLocaleDateString()}
-          </p>
 
-          {/* Form to send an invite */}
-          {tripDetails.creator === user.id && (
-            <div>
-              <h3>Invite a User</h3>
-              <input
-                type="email"
-                value={inviteEmail}
-                onChange={(e) => setInviteEmail(e.target.value)}
-                placeholder="Enter invitee's email"
+          {/* Tab Navigation */}
+          <nav>
+            <button onClick={() => setActiveTab("overview")}>Overview</button>
+            <button onClick={() => setActiveTab("manage-users")}>
+              Manage Users
+            </button>
+            {tripDetails.creator === user.id && (
+              <button onClick={() => setInviteModalOpen(true)}>Invite</button>
+            )}
+            <button onClick={() => setActiveTab("activities")}>
+              Activities
+            </button>
+          </nav>
+
+          {/* Render Tab Content Based on Active Tab */}
+          <div>
+            {activeTab === "overview" && <Overview tripDetails={tripDetails} />}
+            {activeTab === "manage-users" && (
+              <ManageUsers
+                invites={invites}
+                participants={tripDetails.participants} // Pass participants from tripDetails
+                handleDeleteInvite={handleDeleteInvite}
               />
-              <button onClick={handleSendInvite}>Send Invite</button>
+            )}
+            {activeTab === "activities" && (
+              <div>Activities content goes here.</div>
+            )}
+          </div>
 
-              {/* Display invite message */}
-              {inviteMessage && <p>{inviteMessage}</p>}
-
-              {/* List of invites */}
-              <div>
-                <h3>Invites</h3>
-                {invites.length > 0 ? (
-                  <ul>
-                    {invites.map((invite) => (
-                      <li key={invite._id}>
-                        {invite.invitee.email} - {invite.status} - Invited on:{" "}
-                        {new Date(invite.invitedAt).toLocaleDateString()}
-                        <button onClick={() => handleDeleteInvite(invite._id)}>
-                          Delete Invite
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p>No invites yet.</p>
-                )}
-              </div>
-            </div>
+          {/* Modal to send invite */}
+          {isInviteModalOpen && (
+            <InviteModal
+              inviteEmail={inviteEmail}
+              setInviteEmail={setInviteEmail}
+              handleSendInvite={handleSendInvite}
+              setInviteModalOpen={setInviteModalOpen} // To close the modal
+            />
           )}
         </div>
       ) : (

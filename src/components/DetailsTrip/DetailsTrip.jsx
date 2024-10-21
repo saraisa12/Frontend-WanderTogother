@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import Client from "../../services/api" // Import the Client instance
 
-const DetailsTrip = () => {
+const DetailsTrip = ({ user }) => {
   const { id } = useParams()
 
   const [tripDetails, setTripDetails] = useState(null)
@@ -90,39 +90,41 @@ const DetailsTrip = () => {
           </p>
 
           {/* Form to send an invite */}
-          <div>
-            <h3>Invite a User</h3>
-            <input
-              type="email"
-              value={inviteEmail}
-              onChange={(e) => setInviteEmail(e.target.value)}
-              placeholder="Enter invitee's email"
-            />
-            <button onClick={handleSendInvite}>Send Invite</button>
-          </div>
+          {tripDetails.creator === user.id && (
+            <div>
+              <h3>Invite a User</h3>
+              <input
+                type="email"
+                value={inviteEmail}
+                onChange={(e) => setInviteEmail(e.target.value)}
+                placeholder="Enter invitee's email"
+              />
+              <button onClick={handleSendInvite}>Send Invite</button>
 
-          {/* Display invite message */}
-          {inviteMessage && <p>{inviteMessage}</p>}
+              {/* Display invite message */}
+              {inviteMessage && <p>{inviteMessage}</p>}
 
-          {/* List of invites */}
-          <div>
-            <h3>Invites</h3>
-            {invites.length > 0 ? (
-              <ul>
-                {invites.map((invite) => (
-                  <li key={invite._id}>
-                    {invite.invitee.email} - {invite.status} - Invited on:{" "}
-                    {new Date(invite.invitedAt).toLocaleDateString()}
-                    <button onClick={() => handleDeleteInvite(invite._id)}>
-                      Delete Invite
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>No invites yet.</p>
-            )}
-          </div>
+              {/* List of invites */}
+              <div>
+                <h3>Invites</h3>
+                {invites.length > 0 ? (
+                  <ul>
+                    {invites.map((invite) => (
+                      <li key={invite._id}>
+                        {invite.invitee.email} - {invite.status} - Invited on:{" "}
+                        {new Date(invite.invitedAt).toLocaleDateString()}
+                        <button onClick={() => handleDeleteInvite(invite._id)}>
+                          Delete Invite
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>No invites yet.</p>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       ) : (
         <p>Trip details not found.</p>

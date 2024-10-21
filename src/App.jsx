@@ -45,11 +45,18 @@ const App = () => {
           <Route path="/signin" element={<SignIn setUser={setUser} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/add/trip" element={<AddTrip />} />
+          <Route path="/list/trips" element={<ListTrips user={user} />} />
           <Route path="/list/trips" element={<ListTrips />} />
 
-          <Route path="/trip/details/:id" element={<DetailsTrip />} />
+          <Route
+            path="/trip/details/:id"
+            element={<DetailsTrip user={user} />}
+          />
 
-          <Route path="/invite/accept/:inviteId" element={<AcceptInvite />} />
+          <Route
+            path="/invite/accept/:inviteId"
+            element={<AcceptInvite handleLogOut={handleLogOut} />}
+          />
         </Routes>
       </main>
     </div>

@@ -1,3 +1,4 @@
+
 import './App.css'
 import { Route, Routes } from 'react-router'
 import Nav from './components/Nav/Nav'
@@ -12,6 +13,8 @@ import ListActivities from './components/ListActivities/ListActivities'
 import EditActivity from './components/EditActivity/EditActivity'
 import { CheckSession } from './services/Auth'
 import { useState, useEffect } from 'react'
+import { useNavigate } from "react-router-dom"
+
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -27,7 +30,9 @@ const App = () => {
   }
 
   useEffect(() => {
+
     const token = localStorage.getItem('token')
+
     if (token) {
       checkToken()
     }

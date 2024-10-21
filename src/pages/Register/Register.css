@@ -1,0 +1,67 @@
+body {
+  background-image: url("/Images/Login_Bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: bottom;
+  height: 100px;
+}
+
+.signup_col {
+  background-color: rgba(255, 255, 255, 0.274);
+  float: right;
+  height: 38pc;
+  width: 26pc;
+  /* margin-top: 29px; */
+  margin-right: 7pc;
+  border-radius: 30px;
+}
+
+.cool {
+  padding: 30px;
+  padding-top: 26px;
+  float: left;
+}
+
+.input-wrapper-2 {
+  color: #17224d;
+  padding-bottom: 30px;
+  font-size: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+}
+
+input {
+  border-radius: 20px;
+  border: none;
+  margin-top: 20px;
+  width: 22pc;
+  height: 2pc;
+}
+
+input::placeholder {
+  padding-left: 10px;
+}
+
+.Register {
+  margin-left: 115px;
+  background-color: #17224d;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  height: 50px;
+  width: 120px;
+  border-radius: 40px;
+}
+
+.Register:hover {
+  background-color: #0b1f71;
+  border-radius: 40px;
+}
+
+.SignUp {
+  text-align: center;
+  color: white;
+  padding-top: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+}

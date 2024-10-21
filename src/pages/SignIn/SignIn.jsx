@@ -36,6 +36,7 @@ const SignIn = ({ setUser }) => {
               placeholder="example@example.com"
               value={formValues.email}
               required
+              className="input-Signin"
             />
           </div>
           <div className="input-wrapper">
@@ -48,6 +49,7 @@ const SignIn = ({ setUser }) => {
               placeholder="Password"
               value={formValues.password}
               required
+              className="input-Signin"
             />
           </div>
           <button

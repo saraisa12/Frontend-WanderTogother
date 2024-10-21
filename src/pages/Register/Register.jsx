@@ -47,6 +47,7 @@ const Register = () => {
               placeholder="John Smith"
               value={formValues.name}
               required
+              className="input-Register"
             />
           </div>
           <div className="input-wrapper-2">
@@ -58,6 +59,7 @@ const Register = () => {
               placeholder="example@example.com"
               value={formValues.email}
               required
+              className="input-Register"
             />
           </div>
 
@@ -70,6 +72,7 @@ const Register = () => {
               placeholder="Password"
               value={formValues.password}
               required
+              className="input-Register"
             />
           </div>
           <div className="input-wrapper-2">
@@ -81,6 +84,7 @@ const Register = () => {
               placeholder="Confirm Password"
               value={formValues.confirmPassword}
               required
+              className="input-Register"
             />
           </div>
           <button

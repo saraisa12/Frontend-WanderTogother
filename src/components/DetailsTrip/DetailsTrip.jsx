@@ -6,30 +6,45 @@ const DetailsTrip = () => {
   const { id } = useParams()
 
   const [tripDetails, setTripDetails] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [invites, setInvites] = useState([]) // State to hold invites
 
   useEffect(() => {
     const getTripDetails = async () => {
       try {
-        // Use the Client instance to fetch trip details
+        // Fetch trip details
         const response = await Client.get(`/trip/details/${id}`)
-
         setTripDetails(response.data)
-
-        console.log(response.data)
       } catch (err) {
         setError(err.response?.data?.message || "Failed to fetch trip details")
-      } finally {
-        setLoading(false)
+      }
+    }
+
+    const getInvites = async () => {
+      try {
+        // Fetch invites associated with the trip
+        const response = await Client.get(`/invite/list/${id}`)
+        setInvites(response.data.invites)
+        console.log("invites", response)
+      } catch (err) {
+        setError(err.response?.data?.message || "Failed to fetch invites")
       }
     }
 
     getTripDetails()
+    getInvites()
   }, [id])
 
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>{error}</p>
+  const handleDeleteInvite = async (inviteId) => {
+    try {
+      // Call the delete invite API
+      await Client.delete(`/invite/delete/${inviteId}`)
+      // Remove the deleted invite from the state
+      setInvites(invites.filter((invite) => invite._id !== inviteId))
+    } catch (err) {
+      console.error("Failed to delete invite:", err)
+      setError(err.response?.data?.message || "Failed to delete invite")
+    }
+  }
 
   return (
     <div>
@@ -47,6 +62,22 @@ const DetailsTrip = () => {
             <strong>End Date:</strong>{" "}
             {new Date(tripDetails.endDate).toLocaleDateString()}
           </p>
+
+          <h3>Invites:</h3>
+          {invites.length > 0 ? (
+            <ul>
+              {invites.map((invite) => (
+                <li key={invite._id}>
+                  {invite.invitee.email} - Status: {invite.status}
+                  <button onClick={() => handleDeleteInvite(invite._id)}>
+                    Delete
+                  </button>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No invites for this trip.</p>
+          )}
         </div>
       ) : (
         <p>Trip details not found.</p>

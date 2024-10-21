@@ -1,22 +1,26 @@
-import "./App.css"
-import { Route, Routes } from "react-router"
-import Nav from "./components/Nav/Nav"
-import Register from "./pages/Register/Register"
-import SignIn from "./pages/SignIn/SignIn"
-import Home from "./pages/Home/Home"
-import { CheckSession } from "./services/Auth"
-import { useState, useEffect } from "react"
-import AddTrip from "./components/AddTrip/AddTrip"
-import ListTrips from "./components/ListTrips/ListTrips"
-import DetailsTrip from "./components/DetailsTrip/DetailsTrip"
+
+import './App.css'
+import { Route, Routes } from 'react-router'
+import Nav from './components/Nav/Nav'
+import Register from './pages/Register/Register'
+import SignIn from './pages/SignIn/SignIn'
+import Home from './pages/Home/Home'
+import AddTrip from './components/AddTrip/AddTrip'
+import ListTrips from './components/ListTrips/ListTrips'
+import DetailsTrip from './components/DetailsTrip/DetailsTrip'
+import AddActivity from './components/AddActivity /AddActivity'
+import ListActivities from './components/ListActivities/ListActivities'
+import EditActivity from './components/EditActivity/EditActivity'
+import { CheckSession } from './services/Auth'
+import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
 import AcceptInvite from "./components/AcceptInvite/AcceptInvite"
+
 
 const App = () => {
   const [user, setUser] = useState(null)
 
   const handleLogOut = () => {
-    //Reset all auth related state and clear localStorage
     setUser(null)
     localStorage.clear()
   }
@@ -27,8 +31,8 @@ const App = () => {
   }
 
   useEffect(() => {
-    const token = localStorage.getItem("token")
-    // Check if token exists before requesting to validate the token
+
+    const token = localStorage.getItem('token')
 
     if (token) {
       checkToken()
@@ -38,7 +42,6 @@ const App = () => {
   return (
     <div className="App">
       <Nav user={user} handleLogOut={handleLogOut} />
-
       <main>
         <Routes>
           <Route path="/" element={<Home user={user} />} />
@@ -57,6 +60,11 @@ const App = () => {
             path="/invite/accept/:inviteId"
             element={<AcceptInvite handleLogOut={handleLogOut} />}
           />
+
+          <Route path="/add/activity" element={<AddActivity />} />
+          <Route path="/list/activities" element={<ListActivities />} />
+          <Route path="/edit/activity/:id" element={<EditActivity />} />{' '}
+
         </Routes>
       </main>
     </div>

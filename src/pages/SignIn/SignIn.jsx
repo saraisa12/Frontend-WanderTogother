@@ -45,23 +45,52 @@ const SignIn = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="email"
-        name="email"
-        value={formValues.email}
-        onChange={handleChange}
-        placeholder="Email"
-      />
-      <input
-        type="password"
-        name="password"
-        value={formValues.password}
-        onChange={handleChange}
-        placeholder="Password"
-      />
-      <button type="submit">Sign In</button>
-    </form>
+
+    <div className="signin_col">
+      <div className="card-overlay-centered">
+        <form className="col" onSubmit={handleSubmit}>
+          <div className="input-wrapper">
+            <label htmlFor="email">Email</label>
+            <br />
+            <input
+              onChange={handleChange}
+              name="email"
+              type="email"
+              placeholder="example@example.com"
+              value={formValues.email}
+              required
+              className="input-Signin"
+            />
+          </div>
+          <div className="input-wrapper">
+            <label htmlFor="password">Password</label>
+            <br />
+            <input
+              onChange={handleChange}
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={formValues.password}
+              required
+              className="input-Signin"
+            />
+          </div>
+          <button
+            disabled={!formValues.email || !formValues.password}
+            className="SignIn_btn"
+          >
+            SIGN IN
+          </button>
+          <div className="SignUp">
+            <h5>
+              Don't have an account?
+              <br /> Sign Up now
+            </h5>
+          </div>
+        </form>
+      </div>
+    </div>
+
   )
 }
 

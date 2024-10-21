@@ -1,6 +1,7 @@
 import { useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import Client from "../../services/api" // Import the Client instance
+import "./AddTrip.css"
 
 const AddTrip = () => {
   const formRef = useRef()
@@ -33,46 +34,86 @@ const AddTrip = () => {
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} className="trip-form">
-      <h2>Add Trip</h2>
+      <h2>ADD A NEW TRIP</h2>
 
-      <label htmlFor="title">Title</label>
-      <input
-        type="text"
-        id="title"
-        name="title"
-        placeholder="Trip Title"
-        required
-      />
+      <div className="inputs">
+        <div className="input-wrapper-3">
+          <label htmlFor="title">Trip Name</label>
+          <br />
+          <input
+            type="text"
+            id="title"
+            name="title"
+            placeholder="Trip Title"
+            required
+            className="input-AddTrip"
+          />
+        </div>
 
-      <label htmlFor="description">Description</label>
-      <textarea
-        id="description"
-        name="description"
-        placeholder="Trip Description"
-        required
-      ></textarea>
+        <div className="input-wrapper-3">
+          <label htmlFor="description">Description</label>
+          <br />
+          <textarea
+            id="description"
+            name="description"
+            placeholder="Trip Description"
+            required
+          ></textarea>
+        </div>
 
-      <label htmlFor="startDate">Start Date</label>
-      <input type="date" id="startDate" name="startDate" required />
+        <div className="input-wrapper-3">
+          <label htmlFor="startDate">Start Date</label>
+          <br />
+          <input
+            type="date"
+            id="startDate"
+            name="startDate"
+            required
+            className="input-AddTrip"
+          />
+        </div>
 
-      <label htmlFor="endDate">End Date</label>
-      <input type="date" id="endDate" name="endDate" required />
+        <div className="input-wrapper-3">
+          <label htmlFor="endDate">End Date</label>
+          <br />
+          <input
+            type="date"
+            id="endDate"
+            name="endDate"
+            required
+            className="input-AddTrip"
+          />
+        </div>
 
-      <label htmlFor="location">Location</label>
-      <input
-        type="text"
-        id="location"
-        name="location"
-        placeholder="Location"
-        required
-      />
+        <div className="input-wrapper-3">
+          <label htmlFor="location">Location</label>
+          <br />
+          <input
+            type="text"
+            id="location"
+            name="location"
+            placeholder="Location"
+            required
+            className="input-AddTrip"
+          />
+        </div>
 
-      <label htmlFor="image">Trip Image</label>
-      <input type="file" id="image" name="image" accept="image/*" />
+        <div className="input-wrapper-3">
+          <label htmlFor="image">Trip Image</label>
+          <br />
+          <input
+            type="file"
+            id="image"
+            name="image"
+            accept="image/*"
+            className="input-AddTrip"
+          />
+        </div>
 
-      <button type="submit" className="submit-button">
-        Add Trip
-      </button>
+        <button type="submit" className="AddTripSubmitBtn">
+          ADD TRIP
+        </button>
+      </div>
     </form>
   )
 }

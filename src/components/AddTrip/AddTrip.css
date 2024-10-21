@@ -1,0 +1,85 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+/* body {
+} */
+
+.trip-form {
+  text-align: center;
+  padding-top: 56px;
+}
+
+.trip-form h2 {
+  /* text-align: center; */
+  color: white;
+  font-size: 50px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+.inputs {
+  /* text-align: center; */
+  background-color: rgba(255, 255, 255, 0.274);
+  height: 43pc;
+  width: 40pc;
+  margin-left: 20pc;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-radius: 6px;
+}
+
+.inputs label {
+  color: #17224d;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.input-AddTrip {
+  border-radius: 20px;
+  border: none;
+  margin-top: 10px;
+  width: 22pc;
+  height: 2pc;
+  width: 30pc;
+}
+
+textarea {
+  width: 30pc;
+  height: 5pc;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+textarea::placeholder {
+  padding: 6px;
+}
+
+.input-wrapper-3 {
+  color: #17224d;
+  padding-bottom: 15px;
+  margin-top: 10px;
+  font-size: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+}
+
+.input-wrapper-3 label {
+  float: left;
+  padding-left: 85px;
+}
+
+.AddTripSubmitBtn {
+  background-color: #17224d;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  height: 50px;
+  width: 30pc;
+  border-radius: 40px;
+}
+
+.AddTripSubmitBtn:hover {
+  background-color: #0b1f71;
+  border-radius: 40px;
+}

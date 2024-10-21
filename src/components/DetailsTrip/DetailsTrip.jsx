@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import Client from "../../services/api"
-import InviteUserForm from "../InviteUserForm/InviteUserForm"
+import ManageInvites from "../ManageInvitees/ManageInvitees"
 
 const DetailsTrip = ({ user }) => {
   const { id } = useParams()
@@ -9,34 +9,37 @@ const DetailsTrip = ({ user }) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [isCreator, setIsCreator] = useState(false)
+  const [invitees, setInvitees] = useState([])
 
   useEffect(() => {
-    const getTripDetails = async () => {
-      if (!user) {
-        // If user is not defined yet, do not proceed
-        return
-      }
+    const fetchTripDetailsAndInvites = async () => {
+      if (!user) return
 
       try {
+        // Fetch trip details
         const response = await Client.get(`/trip/details/${id}`)
-        setTripDetails(response.data)
+        setTripDetails(response.data.trip)
 
-        const userId = response.data.creator
+        // Check if the logged-in user is the creator of the trip
+        const userId = response.data.trip.creator
         const loggedInUserId = user.id
+        setIsCreator(userId === loggedInUserId)
 
-        console.log(userId)
-        console.log(loggedInUserId)
-
-        setIsCreator(userId === loggedInUserId) // Compare IDs
+        // Fetch invites for the trip
+        const invitesResponse = await Client.get(`/invite/list/${id}`) // Adjust the endpoint as necessary
+        setInvitees(invitesResponse.data.invites) // Ensure this matches your API response structure
       } catch (err) {
-        setError(err.response?.data?.message || "Failed to fetch trip details")
+        setError(
+          err.response?.data?.message ||
+            "Failed to fetch trip details or invites"
+        )
       } finally {
         setLoading(false)
       }
     }
 
-    getTripDetails()
-  }, [id, user]) // Adding user as a dependency
+    fetchTripDetailsAndInvites()
+  }, [id, user])
 
   if (loading) return <p>Loading...</p>
   if (error) return <p>{error}</p>
@@ -61,8 +64,8 @@ const DetailsTrip = ({ user }) => {
             <strong>Location:</strong> {tripDetails.location}
           </p>
 
-          {/* Show the invite form only if the user is the creator */}
-          {isCreator && <InviteUserForm tripId={id} />}
+          {/* Pass the tripId and invitees to the ManageInvites component */}
+          <ManageInvites tripId={id} invitees={invitees} />
         </div>
       ) : (
         <p>Trip details not found.</p>

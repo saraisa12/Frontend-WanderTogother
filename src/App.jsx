@@ -10,6 +10,7 @@ import AddTrip from "./components/AddTrip/AddTrip"
 import ListTrips from "./components/ListTrips/ListTrips"
 import DetailsTrip from "./components/DetailsTrip/DetailsTrip"
 import { useNavigate } from "react-router-dom"
+import InviteResponse from "./components/InviteResponse/InviteResponse"
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -45,6 +46,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/add/trip" element={<AddTrip />} />
           <Route path="/list/trips" element={<ListTrips />} />
+          <Route path="/invite/response" element={<InviteResponse />} />
 
           <Route
             path="/trip/details/:id"

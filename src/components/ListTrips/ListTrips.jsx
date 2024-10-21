@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import Client from "../../services/api"
 
-const ListTrips = () => {
+const ListTrips = ({ user }) => {
   const [trips, setTrips] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -46,7 +46,10 @@ const ListTrips = () => {
             <Link to={`/trip/details/${trip._id}`}>
               <h3>{trip.title}</h3>
             </Link>
-            <button onClick={() => handleDelete(trip._id)}>Delete</button>
+            {/* Check if the logged-in user is the creator of the trip */}
+            {user && trip.creator === user.id && (
+              <button onClick={() => handleDelete(trip._id)}>Delete</button>
+            )}
           </div>
         ))
       ) : (

@@ -88,4 +88,27 @@ export const deleteActivity = async (activityId) => {
   }
 }
 
+export const addVote = async (activityId, voteType) => {
+  try {
+    const response = await Client.post(`/activity/${activityId}/vote`, {
+      voteType
+    })
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
+export const addComment = async (activityId, commentData) => {
+  try {
+    const response = await Client.post(`/activity/${activityId}/comment`, {
+      text: commentData.text,
+      user: commentData.user
+    })
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
 export default Client

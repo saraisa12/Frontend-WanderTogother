@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <div className="home-container">
       <section className="hero-section">
-        <img />
+        {/* <img src="/Images/Logo-NoBg.png" alt="Logo" /> */}
         <div className="hero-overlay">
           <h1 className="hero-title">
             Unified <br />

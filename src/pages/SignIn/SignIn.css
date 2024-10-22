@@ -7,6 +7,19 @@ body {
   height: 100px;
 }
 
+.LTYA {
+  position: fixed;
+  color: white;
+  font-size: 80px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-transform: uppercase;
+  margin-top: 110px;
+  margin-left: 60px;
+  padding: 0;
+  text-align: center;
+  line-height: 1.5;
+}
+
 .signin_col {
   background-color: rgba(255, 255, 255, 0.274);
   float: right;

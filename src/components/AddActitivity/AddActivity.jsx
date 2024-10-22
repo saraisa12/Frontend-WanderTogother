@@ -3,8 +3,9 @@ import { useNavigate, useParams } from "react-router-dom"
 import Client from "../../services/api"
 import { LoadScript, Autocomplete } from "@react-google-maps/api"
 
-const GOOGLE_MAPS_API_KEY = "AIzaSyBgqMJ0I9Amizf8K6QZRumavkhx9zXzxxM" // Replace with your actual Google Maps API key
-const libraries = ["places"] // Move libraries outside the component
+const GOOGLE_MAPS_API_KEY = "AIzaSyBgqMJ0I9Amizf8K6QZRumavkhx9zXzxxM"
+const libraries = ["places"]
+
 const AddActivity = () => {
   const { TripId } = useParams()
   const formRef = useRef()
@@ -76,8 +77,11 @@ const AddActivity = () => {
         </div>
         <div>
           <label htmlFor="description">Description</label>
-          <textarea id="description" name="description" required />
+          <textarea id="description" name="description" />
         </div>
+
+        <label htmlFor="Date">Date</label>
+        <input type="Date" id="Date" name="Date" required />
 
         <div>
           <label htmlFor="location">Location</label>

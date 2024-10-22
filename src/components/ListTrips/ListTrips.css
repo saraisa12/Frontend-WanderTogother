@@ -35,15 +35,11 @@
 .trip-card {
   position: relative;
   background-color: transparent;
-  border-radius: 10px;
+  border-radius: 25px;
   overflow: hidden;
   transition: transform 0.2s ease;
-  max-width: 800px;
+  width: 500px;
   margin: 0 auto; /* Centering the card */
-}
-
-.trip-card:hover {
-  transform: translateY(-5px);
 }
 
 /* Delete button (small "X" at the top right corner) */

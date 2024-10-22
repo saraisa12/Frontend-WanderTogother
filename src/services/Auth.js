@@ -2,10 +2,10 @@ import Client from './api'
 
 export const SignInUser = async (data) => {
   try {
-    console.log('Logging in with data:', data) // Log the login data
+    console.log('Logging in with data:', data)
     const res = await Client.post('/auth/login', data)
     localStorage.setItem('token', res.data.token)
-    console.log('Login response:', res.data) // Log the response data
+    console.log('Login response:', res.data)
     return res.data.user
   } catch (error) {
     console.error(

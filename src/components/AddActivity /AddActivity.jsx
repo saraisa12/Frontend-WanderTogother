@@ -1,15 +1,17 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Client from '../../services/api'
 
 const AddActivity = () => {
   const formRef = useRef()
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-
     const formData = new FormData(formRef.current)
+
+    setLoading(true)
 
     try {
       const response = await Client.post('/activity/add', formData, {
@@ -27,6 +29,8 @@ const AddActivity = () => {
         'Error adding activity: ' +
           (error.response ? error.response.data.message : error.message)
       )
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -34,37 +38,25 @@ const AddActivity = () => {
     <form ref={formRef} onSubmit={handleSubmit} className="activity-form">
       <h2>Add Activity</h2>
 
-      <label htmlFor="name">Name</label>
-      <input
-        type="text"
-        id="name"
-        name="name"
-        placeholder="Activity Name"
-        required
-      />
+      <div>
+        <label htmlFor="name">Activity Name</label>
+        <input type="text" id="name" name="name" required />
+      </div>
+      <div>
+        <label htmlFor="description">Description</label>
+        <textarea id="description" name="description" required />
+      </div>
+      <div>
+        <label htmlFor="location">Location</label>
+        <input type="text" id="location" name="location" required />
+      </div>
+      <div>
+        <label htmlFor="photo">Upload Photo</label>
+        <input type="file" id="photo" name="photo" accept="image/*" required />
+      </div>
 
-      <label htmlFor="description">Description</label>
-      <textarea
-        id="description"
-        name="description"
-        placeholder="Activity Description"
-        required
-      ></textarea>
-
-      <label htmlFor="location">Location</label>
-      <input
-        type="text"
-        id="location"
-        name="location"
-        placeholder="Location"
-        required
-      />
-
-      <label htmlFor="photo">Activity Photo</label>
-      <input type="file" id="photo" name="photo" accept="image/*" />
-
-      <button type="submit" className="submit-button">
-        Add Activity
+      <button type="submit" className="submit-button" disabled={loading}>
+        {loading ? 'Adding...' : 'Add Activity'}
       </button>
     </form>
   )

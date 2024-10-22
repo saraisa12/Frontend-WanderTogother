@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import Client from "../../services/api"
 
-const ListTrips = () => {
+const ListTrips = ({ user }) => {
   const [trips, setTrips] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
+  console.log(user)
   useEffect(() => {
     const getTrips = async () => {
       try {
@@ -46,7 +47,9 @@ const ListTrips = () => {
             <Link to={`/trip/details/${trip._id}`}>
               <h3>{trip.title}</h3>
             </Link>
-            <button onClick={() => handleDelete(trip._id)}>Delete</button>
+            {trip.creator === user.id && (
+              <button onClick={() => handleDelete(trip._id)}>Delete</button>
+            )}
           </div>
         ))
       ) : (

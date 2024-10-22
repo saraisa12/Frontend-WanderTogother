@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom" // Import useNavigate
 import Client from "../../services/api"
 import Overview from "../overview/Overview"
 import ManageUsers from "../ManageUsers/ManageUsers"
 import InviteModal from "../InviteModal/InviteModal"
+import ListActivities from "../ListActivities/ListActivities" // Import ListActivities
 import "./DetailsTrip.css"
 
+
 const DetailsTrip = ({ user }) => {
-  const { id } = useParams()
+  const { id } = useParams() // Get tripId from the URL
+  const navigate = useNavigate() // Get the navigate function
 
   const [tripDetails, setTripDetails] = useState(null)
   const [invites, setInvites] = useState([])
@@ -58,6 +61,10 @@ const DetailsTrip = ({ user }) => {
     } catch (error) {
       setInviteMessage(error.response?.data?.message || "Failed to send invite")
     }
+  }
+
+  const handleAddActivity = () => {
+    navigate(`/add/activity/${id}`)
   }
 
   const handleDeleteInvite = async (inviteId) => {
@@ -117,12 +124,16 @@ const DetailsTrip = ({ user }) => {
             {activeTab === "manage-users" && (
               <ManageUsers
                 invites={invites}
-                participants={tripDetails.participants} // Pass participants from tripDetails
+                participants={tripDetails.participants}
                 handleDeleteInvite={handleDeleteInvite}
               />
             )}
             {activeTab === "activities" && (
-              <div>Activities content goes here.</div>
+              <div>
+                <button onClick={handleAddActivity}>Add Activity</button>{" "}
+                {/* Add Activity Button */}
+                <ListActivities tripId={id} /> {/* Pass id as tripId */}
+              </div>
             )}
           </div>
 

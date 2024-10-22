@@ -53,12 +53,11 @@
   background-color: #00caee;
   color: white;
   border: none;
-  border-radius: 25px;
+  border-radius: 50px;
   font-size: 1.2rem;
   text-align: center;
   cursor: pointer;
-  width: 20pc;
-  height: 4pc;
+  width: 200px;
 }
 
 .start-planning-btn:hover {

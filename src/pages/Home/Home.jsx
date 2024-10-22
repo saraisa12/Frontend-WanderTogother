@@ -1,5 +1,6 @@
 import React from "react"
 import "./Home.css"
+import { Link } from "react-router-dom"
 
 const Home = () => {
   return (
@@ -14,7 +15,9 @@ const Home = () => {
           <p className="hero-subtitle">
             Where every adventure begins with your crew by your side!
           </p>
-          <button className="start-planning-btn">Start Planning ⇒</button>
+          <Link to="/list/trips" className="start-planning-btn">
+            Start Planning &rarr;
+          </Link>
         </div>
       </section>
     </div>

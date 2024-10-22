@@ -1,4 +1,3 @@
-
 import './App.css'
 import { Route, Routes } from 'react-router'
 import Nav from './components/Nav/Nav'
@@ -8,14 +7,13 @@ import Home from './pages/Home/Home'
 import AddTrip from './components/AddTrip/AddTrip'
 import ListTrips from './components/ListTrips/ListTrips'
 import DetailsTrip from './components/DetailsTrip/DetailsTrip'
-import AddActivity from './components/AddActivity /AddActivity'
+import AddActivity from './components/AddActitivity/AddActivity'
 import ListActivities from './components/ListActivities/ListActivities'
 import EditActivity from './components/EditActivity/EditActivity'
 import { CheckSession } from './services/Auth'
 import { useState, useEffect } from 'react'
-import { useNavigate } from "react-router-dom"
-import AcceptInvite from "./components/AcceptInvite/AcceptInvite"
-
+import { useNavigate } from 'react-router-dom'
+import AcceptInvite from './components/AcceptInvite/AcceptInvite'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -31,7 +29,6 @@ const App = () => {
   }
 
   useEffect(() => {
-
     const token = localStorage.getItem('token')
 
     if (token) {
@@ -50,21 +47,17 @@ const App = () => {
           <Route path="/add/trip" element={<AddTrip />} />
           <Route path="/list/trips" element={<ListTrips user={user} />} />
           <Route path="/list/trips" element={<ListTrips />} />
-
           <Route
             path="/trip/details/:id"
             element={<DetailsTrip user={user} />}
           />
-
           <Route
             path="/invite/accept/:inviteId"
             element={<AcceptInvite handleLogOut={handleLogOut} />}
           />
-
           <Route path="/add/activity" element={<AddActivity />} />
           <Route path="/list/activities" element={<ListActivities />} />
           <Route path="/edit/activity/:id" element={<EditActivity />} />{' '}
-
         </Routes>
       </main>
     </div>

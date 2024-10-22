@@ -14,6 +14,7 @@ import { CheckSession } from "./services/Auth"
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import AcceptInvite from "./components/AcceptInvite/AcceptInvite"
+import MapWithPins from "./components/MapWithPins/MapWithPins"
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -58,6 +59,7 @@ const App = () => {
           <Route path="/add/activity/:TripId" element={<AddActivity />} />
           <Route path="/list/activities/:TripId" element={<ListActivities />} />
           <Route path="/edit/activity/:id" element={<EditActivity />} />{" "}
+          <Route path="/Map" element={<MapWithPins />} />{" "}
         </Routes>
       </main>
     </div>

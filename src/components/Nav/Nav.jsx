@@ -7,13 +7,11 @@ const Nav = ({ user, handleLogOut }) => {
   if (user) {
     userOptions = (
       <nav>
-        <h3>Welcome {user.email}!</h3>
         <Link to="/">Home</Link>
         <Link to="/add/trip">About</Link>
         <Link onClick={handleLogOut} to="/">
           Sign Out
         </Link>
-        <img src="/Images/Logo-NoBg.png" alt="Logo" />
       </nav>
     )
   }

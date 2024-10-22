@@ -1,8 +1,9 @@
-import { useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import Client from '../../services/api'
+import { useRef, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom" // Import useParams
+import Client from "../../services/api"
 
 const AddActivity = () => {
+  const { TripId } = useParams() // Get TripId from the URL
   const formRef = useRef()
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
@@ -11,22 +12,25 @@ const AddActivity = () => {
     event.preventDefault()
     const formData = new FormData(formRef.current)
 
+    // Append TripId to formData
+    formData.append("tripId", TripId)
+
     setLoading(true)
 
     try {
-      const response = await Client.post('/activity/add', formData, {
+      const response = await Client.post("/activity/add", formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          "Content-Type": "multipart/form-data",
+        },
       })
-      console.log('Activity added successfully:', response.data)
+      console.log("Activity added successfully:", response.data)
 
       formRef.current.reset()
-      navigate('/list/activities')
+      navigate(`/trip/details/${TripId}`) // Redirect to the trip details page
     } catch (error) {
-      console.error('Error adding activity:', error)
+      console.error("Error adding activity:", error)
       alert(
-        'Error adding activity: ' +
+        "Error adding activity: " +
           (error.response ? error.response.data.message : error.message)
       )
     } finally {
@@ -56,7 +60,7 @@ const AddActivity = () => {
       </div>
 
       <button type="submit" className="submit-button" disabled={loading}>
-        {loading ? 'Adding...' : 'Add Activity'}
+        {loading ? "Adding..." : "Add Activity"}
       </button>
     </form>
   )

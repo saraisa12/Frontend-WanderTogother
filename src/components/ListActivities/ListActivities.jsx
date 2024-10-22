@@ -129,9 +129,10 @@ const ListActivities = ({ tripId }) => {
           <li key={activity._id}>
             <h3>{activity.name}</h3>
             <p>{activity.description}</p>
-            <p>{activity.location}</p>
+            <p>{activity.Date}</p>
+            <a href={activity.mapsUrl}>view in maps</a>
             <img
-              src={`http://localhost:4000/uploads/../${activity.photo}`}
+              src={activity.photoUrl}
               alt={activity.name}
               style={{ width: "200px", height: "150px", objectFit: "cover" }}
             />

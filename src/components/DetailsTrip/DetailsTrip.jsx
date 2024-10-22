@@ -4,6 +4,7 @@ import Client from "../../services/api"
 import Overview from "../overview/Overview"
 import ManageUsers from "../ManageUsers/ManageUsers"
 import InviteModal from "../InviteModal/InviteModal"
+import "./DetailsTrip.css"
 
 const DetailsTrip = ({ user }) => {
   const { id } = useParams()
@@ -80,19 +81,32 @@ const DetailsTrip = ({ user }) => {
   return (
     <div>
       {tripDetails ? (
-        <div>
+        <div className="Details">
           <h2>{tripDetails.title}</h2>
 
           {/* Tab Navigation */}
-          <nav>
-            <button onClick={() => setActiveTab("overview")}>Overview</button>
-            <button onClick={() => setActiveTab("manage-users")}>
+          <nav className="navBarDetails">
+            <button onClick={() => setActiveTab("overview")} className="DBtns">
+              Overview
+            </button>
+            <button
+              onClick={() => setActiveTab("manage-users")}
+              className="DBtns"
+            >
               Manage Users
             </button>
             {tripDetails.creator === user.id && (
-              <button onClick={() => setInviteModalOpen(true)}>Invite</button>
+              <button
+                onClick={() => setInviteModalOpen(true)}
+                className="DBtns"
+              >
+                Invite
+              </button>
             )}
-            <button onClick={() => setActiveTab("activities")}>
+            <button
+              onClick={() => setActiveTab("activities")}
+              className="DBtns"
+            >
               Activities
             </button>
           </nav>

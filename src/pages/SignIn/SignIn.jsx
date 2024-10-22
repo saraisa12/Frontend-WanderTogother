@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
+import "./SignIn.css"
 
 const SignIn = () => {
   const [formValues, setFormValues] = useState({ email: "", password: "" })
@@ -45,7 +46,6 @@ const SignIn = () => {
   }
 
   return (
-
     <div className="signin_col">
       <div className="card-overlay-centered">
         <form className="col" onSubmit={handleSubmit}>
@@ -90,7 +90,6 @@ const SignIn = () => {
         </form>
       </div>
     </div>
-
   )
 }
 

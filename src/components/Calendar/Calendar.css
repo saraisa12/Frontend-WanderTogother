@@ -1,0 +1,22 @@
+.calendar-container {
+  max-width: 800px; /* Increase max width */
+  margin: 0 auto; /* Center the calendar */
+}
+
+.react-calendar {
+  width: 100%; /* Make calendar responsive */
+  border: none;
+  font-family: Arial, sans-serif;
+  font-size: 16px; /* Increase font size */
+}
+
+.calendar-tile {
+  position: relative;
+}
+
+.calendar-tile textarea {
+  width: 100%; /* Full width */
+  height: 50px; /* Height for the textarea */
+  resize: none; /* Prevent resizing */
+  margin-top: 5px; /* Space above the textarea */
+}

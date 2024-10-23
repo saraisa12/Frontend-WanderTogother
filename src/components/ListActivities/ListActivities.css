@@ -1,9 +1,7 @@
 .activitiy-container {
   border: 1px solid black;
-
   margin: 10px;
   width: 50%;
-
   background-color: white;
   border-radius: 25px;
   overflow: hidden;
@@ -23,12 +21,12 @@
 }
 
 .kabab-menu {
-  padding: 10px;
+  padding: 22px;
 }
 
 .comment-container {
-  margin-right: 10px;
-  margin-bottom: 10px;
+  margin-right: 25px;
+  margin-bottom: 15px;
 }
 
 .activity-image-container img {
@@ -63,7 +61,8 @@
 }
 
 .reactions {
-  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
 }
 
 .reactions button {
@@ -72,7 +71,12 @@
   border: none;
   cursor: pointer;
   margin-right: 10px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .reactions button:hover {
@@ -83,7 +87,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px;
+  padding: 50px;
 }
 
 .activity-header {
@@ -94,14 +98,20 @@
 }
 
 .activity-header h1 {
-  font-size: 24px;
-  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 40px;
+  text-align: center;
+  padding: 20px;
+  letter-spacing: 0.1rem;
 }
 
 .activity-header p {
-  font-size: 14px;
-  color: #6c757d;
+  font-size: 16px;
+  color: #e8f0f8;
   margin-bottom: 20px;
+  padding-top: 8px;
   text-align: center;
 }
 

@@ -1,3 +1,12 @@
+body {
+  background-image: url("/Images/Home.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: bottom;
+  height: 100px;
+}
+
 .home-container {
   display: flex;
   flex-direction: column;

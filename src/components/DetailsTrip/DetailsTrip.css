@@ -1,7 +1,7 @@
 .Details h2 {
   color: white;
   text-transform: uppercase;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   font-size: 40px;
   text-align: center;
   padding: 20px;
@@ -21,8 +21,8 @@
   background-color: transparent;
   border: none;
   font-size: large;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-    'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 .DBtns:hover {
   color: #007bff;
@@ -31,4 +31,35 @@
   -o-transition: all 0.1s ease-in;
   -webkit-transition: all 0.1s ease-in;
   transition: all 0.1s ease-in;
+}
+
+.creator-info {
+  display: flex;
+  align-items: center;
+
+  padding: 8px 16px;
+  border-radius: 8px;
+  color: white;
+}
+
+.creator-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  margin-right: 10px;
+}
+
+.badge {
+  background-color: #a1a5b7;
+  color: white;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+
+.details-container {
+  min-height: 100vh;
+  background-color: white;
+  padding: 20px;
 }

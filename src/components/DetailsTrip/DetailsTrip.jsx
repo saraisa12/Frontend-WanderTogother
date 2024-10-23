@@ -13,6 +13,7 @@ import "./DetailsTrip.css"
 
 const DetailsTrip = ({ user }) => {
   const { id } = useParams()
+
   const navigate = useNavigate()
 
   const [tripDetails, setTripDetails] = useState(null)
@@ -24,12 +25,16 @@ const DetailsTrip = ({ user }) => {
   const [activeTab, setActiveTab] = useState("overview")
 
   const [isInviteModalOpen, setInviteModalOpen] = useState(false)
-
+  const [creatorName, setCreatorName] = useState("")
   useEffect(() => {
     const fetchTripDetails = async () => {
       try {
         const response = await Client.get(`/trip/details/${id}`)
         setTripDetails(response.data)
+
+        // Fetch creator details
+        const creatorId = response.data.creator // Assuming creator is the ID field
+        fetchCreatorDetails(creatorId)
       } catch (err) {
         setError(err.response?.data?.message || "Failed to fetch trip details")
       } finally {
@@ -43,6 +48,20 @@ const DetailsTrip = ({ user }) => {
         setInvites(response.data.invites)
       } catch (err) {
         console.error("Error fetching invites:", err)
+      }
+    }
+
+    // Fetch creator's details based on creator ID
+    const fetchCreatorDetails = async (creatorId) => {
+      try {
+        const response = await Client.post("/auth/details", {
+          ids: [creatorId], // Pass the creator ID to the backend
+        })
+        if (response.data.length > 0) {
+          setCreatorName(response.data[0].name)
+        }
+      } catch (error) {
+        console.error("Error fetching creator details:", error)
       }
     }
 
@@ -92,37 +111,26 @@ const DetailsTrip = ({ user }) => {
   if (error) return <p style={{ color: "red" }}>{error}</p>
 
   return (
-    <div>
+    <div className="details-container">
       {tripDetails ? (
         <div className="Details">
           <h2>{tripDetails.title}</h2>
 
           <nav className="navBarDetails">
+            <div className="creator-info">
+              <span className="creator-name">{creatorName}</span>
+              <span className="badge">planner</span>
+            </div>
+
             <button onClick={() => setActiveTab("overview")} className="DBtns">
               Overview
             </button>
 
-            {tripDetails.creator === user?.id && (
-              <button
-                onClick={() => setInviteModalOpen(true)}
-                className="DBtns"
-              >
-                Invite
-              </button>
-            )}
             <button
               onClick={() => setActiveTab("activities")}
               className="DBtns"
             >
               Activities
-            </button>
-            <button
-              onClick={() => {
-                setActiveTab("notes")
-              }}
-              className="DBtns"
-            >
-              Notes
             </button>
 
             <button onClick={() => setActiveTab("calendar")} className="DBtns">
@@ -132,9 +140,28 @@ const DetailsTrip = ({ user }) => {
             <button onClick={() => setActiveTab("album")} className="DBtns">
               Album
             </button>
+
             <button onClick={() => setActiveTab("checklist")} className="DBtns">
               checklist
             </button>
+
+            <button
+              onClick={() => {
+                setActiveTab("notes")
+              }}
+              className="DBtns"
+            >
+              Notes
+            </button>
+
+            {tripDetails.creator === user?.id && (
+              <button
+                onClick={() => setInviteModalOpen(true)}
+                className="DBtns"
+              >
+                <i class="bi bi-person-add"></i> Invite
+              </button>
+            )}
           </nav>
 
           <div>

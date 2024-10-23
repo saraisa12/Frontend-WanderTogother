@@ -1,9 +1,11 @@
+
 import React, { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom" // Import useNavigate
 import Client from "../../services/api"
 import Overview from "../overview/Overview"
 import ManageUsers from "../ManageUsers/ManageUsers"
 import InviteModal from "../InviteModal/InviteModal"
+import Notes from '../Notes/Notes'
 import ListActivities from "../ListActivities/ListActivities" // Import ListActivities
 import "./DetailsTrip.css"
 
@@ -16,35 +18,37 @@ const DetailsTrip = ({ user }) => {
   const [invites, setInvites] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [inviteEmail, setInviteEmail] = useState("")
+  const [inviteEmail, setInviteEmail] = useState('')
   const [inviteMessage, setInviteMessage] = useState(null)
-  const [activeTab, setActiveTab] = useState("overview") // Default to "Overview" tab
-  const [isInviteModalOpen, setInviteModalOpen] = useState(false) // Control the modal visibility
+  const [activeTab, setActiveTab] = useState('overview')
+  const [isInviteModalOpen, setInviteModalOpen] = useState(false)
+  const [showNotes, setShowNotes] = useState(false)
 
   useEffect(() => {
-    const getTripDetails = async () => {
+    const fetchTripDetails = async () => {
       try {
         const response = await Client.get(`/trip/details/${id}`)
         setTripDetails(response.data)
       } catch (err) {
-        setError(err.response?.data?.message || "Failed to fetch trip details")
+        setError(err.response?.data?.message || 'Failed to fetch trip details')
       } finally {
         setLoading(false)
       }
     }
 
-    const getInvites = async () => {
+    const fetchInvites = async () => {
       try {
         const response = await Client.get(`/invite/list/${id}`)
         setInvites(response.data.invites)
       } catch (err) {
-        console.error("Error fetching invites:", err)
+        console.error('Error fetching invites:', err)
       }
     }
 
-    getTripDetails()
-    getInvites()
+    fetchTripDetails()
+    fetchInvites()
   }, [id])
+
 
   const handleSendInvite = async () => {
     try {
@@ -83,13 +87,14 @@ const DetailsTrip = ({ user }) => {
   }
 
   if (loading) return <p>Loading...</p>
-  if (error) return <p>{error}</p>
+  if (error) return <p style={{ color: 'red' }}>{error}</p>
 
   return (
     <div>
       {tripDetails ? (
         <div className="Details">
           <h2>{tripDetails.title}</h2>
+
 
           {/* Tab Navigation */}
           <nav className="navBarDetails">
@@ -100,6 +105,7 @@ const DetailsTrip = ({ user }) => {
               onClick={() => setActiveTab("manage-users")}
               className="DBtns"
             >
+
               Manage Users
             </button>
             {tripDetails.creator === user.id && (
@@ -110,42 +116,58 @@ const DetailsTrip = ({ user }) => {
                 Invite
               </button>
             )}
+
             <button
               onClick={() => setActiveTab("activities")}
               className="DBtns"
             >
+
               Activities
             </button>
+            <button
+              onClick={() => {
+                console.log('Notes button clicked')
+                setShowNotes(true)
+                setActiveTab('notes')
+              }}
+            >
+              Notes
+            </button>
           </nav>
-
-          {/* Render Tab Content Based on Active Tab */}
           <div>
-            {activeTab === "overview" && <Overview tripDetails={tripDetails} />}
-            {activeTab === "manage-users" && (
+            {activeTab === 'overview' && <Overview tripDetails={tripDetails} />}
+            {activeTab === 'manage-users' && (
               <ManageUsers
                 invites={invites}
                 participants={tripDetails.participants}
                 handleDeleteInvite={handleDeleteInvite}
               />
             )}
+
             {activeTab === "activities" && (
               <div>
                 <button onClick={handleAddActivity}>Add Activity</button>{" "}
                 {/* Add Activity Button */}
                 <ListActivities tripId={id} /> {/* Pass id as tripId */}
               </div>
+
+            )}
+            {activeTab === 'notes' && showNotes && (
+              <>
+                {console.log('Rendering Notes component')}
+                <Notes tripId={id} />
+              </>
             )}
           </div>
-
-          {/* Modal to send invite */}
           {isInviteModalOpen && (
             <InviteModal
               inviteEmail={inviteEmail}
               setInviteEmail={setInviteEmail}
               handleSendInvite={handleSendInvite}
-              setInviteModalOpen={setInviteModalOpen} // To close the modal
+              setInviteModalOpen={setInviteModalOpen}
             />
           )}
+          {inviteMessage && <p style={{ color: 'green' }}>{inviteMessage}</p>}
         </div>
       ) : (
         <p>Trip details not found.</p>

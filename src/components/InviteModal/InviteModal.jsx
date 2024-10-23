@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import "./InviteModal.css"
 
 const InviteModal = ({
@@ -7,6 +7,13 @@ const InviteModal = ({
   handleSendInvite,
   setInviteModalOpen,
 }) => {
+  const [successMessage, setSuccessMessage] = useState(false)
+
+  const handleSendClick = () => {
+    handleSendInvite() // Call the invite function
+    setSuccessMessage(true) // Set success message to true after sending the invite
+  }
+
   return (
     <div className="modal">
       <div className="modal-content">
@@ -29,15 +36,13 @@ const InviteModal = ({
           className="EmailInput"
         />
         <br />
-        <button
-          onClick={() => {
-            handleSendInvite()
-            setInviteModalOpen(false)
-          }}
-          className="InviteModelBtn"
-        >
+        <button onClick={handleSendClick} className="InviteModelBtn">
           Send Invite
         </button>
+        {/* Show success message if invite was sent */}
+        {successMessage && (
+          <p className="success-message">Invite sent successfully!</p>
+        )}
       </div>
     </div>
   )

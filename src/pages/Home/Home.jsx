@@ -1,12 +1,23 @@
 import React from "react"
 import "./Home.css"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const Home = () => {
+  const navigate = useNavigate()
+
+  // Function to handle the button click
+  const handleStartPlanningClick = () => {
+    const token = localStorage.getItem("token")
+    if (!token) {
+      navigate("/signin")
+    } else {
+      navigate("/list/trips")
+    }
+  }
+
   return (
     <div className="home-container">
       <section className="hero-section">
-        {/* <img src="/Images/Logo-NoBg.png" alt="Logo" /> */}
         <div className="hero-overlay">
           <h1 className="hero-title">
             Unified <br />
@@ -15,9 +26,12 @@ const Home = () => {
           <p className="hero-subtitle">
             Where every adventure begins with your crew by your side!
           </p>
-          <Link to="/list/trips" className="start-planning-btn">
+          <button
+            onClick={handleStartPlanningClick}
+            className="start-planning-btn"
+          >
             Start Planning &rarr;
-          </Link>
+          </button>
         </div>
       </section>
     </div>

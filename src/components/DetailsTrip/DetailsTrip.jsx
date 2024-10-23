@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import Client from '../../services/api'
@@ -6,8 +7,10 @@ import ManageUsers from '../ManageUsers/ManageUsers'
 import InviteModal from '../InviteModal/InviteModal'
 import Notes from '../Notes/Notes'
 import ListActivities from '../ListActivities/ListActivities'
+import Album from "../Album/Album"
 import TripCalendar from '../Calendar/Calendar'
 import './DetailsTrip.css'
+
 
 const DetailsTrip = ({ user }) => {
   const { id } = useParams()
@@ -17,9 +20,11 @@ const DetailsTrip = ({ user }) => {
   const [invites, setInvites] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [inviteEmail, setInviteEmail] = useState('')
+  const [inviteEmail, setInviteEmail] = useState("")
   const [inviteMessage, setInviteMessage] = useState(null)
-  const [activeTab, setActiveTab] = useState('overview') // Set the default tab
+
+  const [activeTab, setActiveTab] = useState("overview")
+
   const [isInviteModalOpen, setInviteModalOpen] = useState(false)
 
   useEffect(() => {
@@ -28,7 +33,7 @@ const DetailsTrip = ({ user }) => {
         const response = await Client.get(`/trip/details/${id}`)
         setTripDetails(response.data)
       } catch (err) {
-        setError(err.response?.data?.message || 'Failed to fetch trip details')
+        setError(err.response?.data?.message || "Failed to fetch trip details")
       } finally {
         setLoading(false)
       }
@@ -39,7 +44,7 @@ const DetailsTrip = ({ user }) => {
         const response = await Client.get(`/invite/list/${id}`)
         setInvites(response.data.invites)
       } catch (err) {
-        console.error('Error fetching invites:', err)
+        console.error("Error fetching invites:", err)
       }
     }
 
@@ -86,13 +91,14 @@ const DetailsTrip = ({ user }) => {
   }
 
   if (loading) return <p>Loading...</p>
-  if (error) return <p style={{ color: 'red' }}>{error}</p>
+  if (error) return <p style={{ color: "red" }}>{error}</p>
 
   return (
     <div>
       {tripDetails ? (
         <div className="Details">
           <h2>{tripDetails.title}</h2>
+
 
           <nav className="navBarDetails">
             <button onClick={() => setActiveTab('overview')} className="DBtns">
@@ -120,26 +126,37 @@ const DetailsTrip = ({ user }) => {
             </button>
             <button
               onClick={() => {
+
                 setActiveTab('notes')
+
               }}
               className="DBtns"
             >
               Notes
             </button>
+
             <button onClick={() => setActiveTab('calendar')} className="DBtns">
               Calendar
             </button>
+
+ <button onClick={() => setActiveTab("album")} className="DBtns">
+              Album
+            </button>
           </nav>
 
+
+
+
           <div>
-            {activeTab === 'overview' && <Overview tripDetails={tripDetails} />}
-            {activeTab === 'manage-users' && (
+            {activeTab === "overview" && <Overview tripDetails={tripDetails} />}
+            {activeTab === "manage-users" && (
               <ManageUsers
                 invites={invites}
                 participants={tripDetails.participants}
                 handleDeleteInvite={handleDeleteInvite}
               />
             )}
+
             {activeTab === 'activities' && (
               <div>
                 <button onClick={handleAddActivity}>Add Activity</button>
@@ -152,8 +169,12 @@ const DetailsTrip = ({ user }) => {
             {activeTab === 'notes' && <Notes tripId={id} />}
             {activeTab === 'calendar' && (
               <TripCalendar tripId={id} onActivityAdded={handleActivityAdded} />
+
             )}
+           
+            {activeTab === "album" && <Album tripId={id} />}
           </div>
+
 
           {isInviteModalOpen && (
             <InviteModal
@@ -164,6 +185,10 @@ const DetailsTrip = ({ user }) => {
               inviteMessage={inviteMessage}
             />
           )}
+
+         
+          {inviteMessage && <p style={{ color: "green" }}>{inviteMessage}</p>}
+
         </div>
       ) : (
         <p>No trip details found</p>

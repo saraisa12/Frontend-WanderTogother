@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import Client from "../../services/api"
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import Client from '../../services/api' // Assuming Client is your Axios instance
 
 const ListActivities = ({ tripId }) => {
   const [activities, setActivities] = useState([])
   const [loading, setLoading] = useState(true)
-  const [commentText, setCommentText] = useState({})
+  const [error, setError] = useState(null)
+  const [commentText, setCommentText] = useState({}) // Store comments per activity
   const navigate = useNavigate()
   const [selectedVote, setSelectedVote] = useState({})
 
@@ -13,12 +14,13 @@ const ListActivities = ({ tripId }) => {
     const fetchActivities = async () => {
       try {
         const response = await Client.get(`/activity/index/${tripId}`)
-        setActivities(response.data.activities || [])
+        setActivities(response.data.activities)
 
-        const storedVotes = JSON.parse(localStorage.getItem("votes")) || {}
+        const storedVotes = JSON.parse(localStorage.getItem('votes')) || {}
         setSelectedVote(storedVotes)
       } catch (error) {
-        console.error("Error fetching activities:", error)
+        console.error('Error fetching activities:', error)
+        setError('Failed to fetch activities.')
       } finally {
         setLoading(false)
       }
@@ -28,7 +30,7 @@ const ListActivities = ({ tripId }) => {
 
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this activity?"
+      'Are you sure you want to delete this activity?'
     )
     if (!confirmDelete) return
 
@@ -38,8 +40,8 @@ const ListActivities = ({ tripId }) => {
         prevActivities.filter((activity) => activity._id !== id)
       )
     } catch (error) {
-      console.error("Error deleting activity:", error)
-      alert("Failed to delete activity. Please try again.")
+      console.error('Error deleting activity:', error)
+      alert('Failed to delete activity. Please try again.')
     }
   }
 
@@ -52,7 +54,7 @@ const ListActivities = ({ tripId }) => {
       await Client.post(`/activity/vote/${id}`, { voteType })
 
       const updatedVotes = { ...selectedVote, [id]: voteType }
-      localStorage.setItem("votes", JSON.stringify(updatedVotes))
+      localStorage.setItem('votes', JSON.stringify(updatedVotes))
       setSelectedVote(updatedVotes)
 
       setActivities((prevActivities) =>
@@ -60,33 +62,37 @@ const ListActivities = ({ tripId }) => {
           activity._id === id
             ? {
                 ...activity,
-                currentVote: voteType,
+                currentVote: voteType
               }
             : activity
         )
       )
     } catch (error) {
-      console.error("Error voting:", error)
+      console.error('Error voting:', error)
     }
   }
 
+  // Handle comment input and submission per activity
   const handleCommentChange = (id, text) => {
     setCommentText((prev) => ({ ...prev, [id]: text }))
   }
 
   const handleComment = async (id) => {
     if (!commentText[id]) {
-      alert("Please enter a comment.")
+      alert('Please enter a comment.')
       return
     }
 
+    console.log(id)
+
     try {
       await Client.post(`/activity/comment/${id}`, {
-        text: commentText[id],
+        text: commentText[id] // Only send the comment text
       })
 
-      alert("Comment added successfully!")
+      alert('Comment added successfully!')
 
+      // After successfully adding a comment, update the activities list with the new comment
       setActivities((prevActivities) =>
         prevActivities.map((activity) =>
           activity._id === id
@@ -94,16 +100,16 @@ const ListActivities = ({ tripId }) => {
                 ...activity,
                 comments: [
                   ...activity.comments,
-                  { text: commentText[id], user: { name: "You" } },
-                ],
+                  { text: commentText[id], user: { name: 'You' } }
+                ] // Placeholder user for the added comment until refetch
               }
             : activity
         )
       )
-      setCommentText((prev) => ({ ...prev, [id]: "" }))
+      setCommentText((prev) => ({ ...prev, [id]: '' })) // Clear comment input for this activity
     } catch (error) {
-      console.error("Error adding comment:", error)
-      alert("Failed to add comment. Please try again.")
+      console.error('Error adding comment:', error)
+      alert('Failed to add comment. Please try again.')
     }
   }
 
@@ -111,100 +117,104 @@ const ListActivities = ({ tripId }) => {
     return <p>Loading activities...</p>
   }
 
+  if (error) {
+    return <p>{error}</p>
+  }
+
   return (
     <div>
       <h1>Activities</h1>
-      {activities.length === 0 ? (
-        <p>No activities available. Start adding some!</p>
-      ) : (
-        <ul>
-          {activities.map((activity) => (
-            <li key={activity._id}>
-              <h3>{activity.name}</h3>
-              <p>{activity.description}</p>
-              <p>{activity.Date}</p>
-              <a href={activity.mapsUrl}>view in maps</a>
-              <img
-                src={activity.photoUrl}
-                alt={activity.name}
-                style={{ width: "200px", height: "150px", objectFit: "cover" }}
+      <ul>
+        {activities.map((activity) => (
+          <li key={activity._id}>
+            <h3>{activity.name}</h3>
+            <p>{activity.description}</p>
+            <p>{activity.Date}</p>
+            <a href={activity.mapsUrl}>view in maps</a>
+            <img
+              src={activity.photoUrl}
+              alt={activity.name}
+              style={{ width: '200px', height: '150px', objectFit: 'cover' }}
+            />
+            <button onClick={() => handleDelete(activity._id)}>Delete</button>
+            <button onClick={() => handleEdit(activity._id)}>Edit</button>
+
+            {/* Voting Section */}
+            <div>
+              <button
+                onClick={() => handleVote(activity._id, 'happy')}
+                style={{
+                  backgroundColor:
+                    selectedVote[activity._id] === 'happy'
+                      ? 'yellow'
+                      : 'transparent'
+                }}
+              >
+                😊
+              </button>
+              <button
+                onClick={() => handleVote(activity._id, 'neutral')}
+                style={{
+                  backgroundColor:
+                    selectedVote[activity._id] === 'neutral'
+                      ? 'yellow'
+                      : 'transparent'
+                }}
+              >
+                😐
+              </button>
+              <button
+                onClick={() => handleVote(activity._id, 'angry')}
+                style={{
+                  backgroundColor:
+                    selectedVote[activity._id] === 'angry'
+                      ? 'yellow'
+                      : 'transparent'
+                }}
+              >
+                😠
+              </button>
+            </div>
+
+            {/* Comments Section */}
+            <div>
+              <input
+                type="text"
+                value={commentText[activity._id] || ''}
+                onChange={(e) =>
+                  handleCommentChange(activity._id, e.target.value)
+                }
+                placeholder="Add a comment..."
               />
-              <button onClick={() => handleDelete(activity._id)}>Delete</button>
-              <button onClick={() => handleEdit(activity._id)}>Edit</button>
+              <button onClick={() => handleComment(activity._id)}>
+                Submit Comment
+              </button>
+            </div>
 
-              <div>
-                <button
-                  onClick={() => handleVote(activity._id, "happy")}
-                  style={{
-                    backgroundColor:
-                      selectedVote[activity._id] === "happy"
-                        ? "yellow"
-                        : "transparent",
-                  }}
-                >
-                  😊
-                </button>
-                <button
-                  onClick={() => handleVote(activity._id, "neutral")}
-                  style={{
-                    backgroundColor:
-                      selectedVote[activity._id] === "neutral"
-                        ? "yellow"
-                        : "transparent",
-                  }}
-                >
-                  😐
-                </button>
-                <button
-                  onClick={() => handleVote(activity._id, "angry")}
-                  style={{
-                    backgroundColor:
-                      selectedVote[activity._id] === "angry"
-                        ? "yellow"
-                        : "transparent",
-                  }}
-                >
-                  😠
-                </button>
-              </div>
-
-              <div>
-                <input
-                  type="text"
-                  value={commentText[activity._id] || ""}
-                  onChange={(e) =>
-                    handleCommentChange(activity._id, e.target.value)
-                  }
-                  placeholder="Add a comment..."
-                />
-                <button onClick={() => handleComment(activity._id)}>
-                  Submit Comment
-                </button>
-              </div>
-
-              <div>
-                {activity.comments && activity.comments.length > 0 ? (
-                  <ul>
-                    {activity.comments.map((cmt, index) => (
-                      <li key={index}>
-                        <strong>
-                          {cmt.user && cmt.user.name
-                            ? cmt.user.name
-                            : "Unknown User"}
-                          :{" "}
-                        </strong>
-                        {cmt.text}
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p>No comments yet.</p>
-                )}
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+            {/* Display Comments */}
+            <div>
+              {activity.comments && activity.comments.length > 0 ? (
+                <ul>
+                  {activity.comments.map((cmt, index) => (
+                    <li key={index}>
+                      {/* Check if cmt.user and cmt.user.name exist before trying to access it */}
+                      <strong>
+                        {cmt.user && cmt.user.name
+                          ? cmt.user.name
+                          : 'Unknown User'}
+                        :{' '}
+                      </strong>
+                      {cmt.text}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No comments yet.</p>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

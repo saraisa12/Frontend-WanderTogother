@@ -15,6 +15,7 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import AcceptInvite from "./components/AcceptInvite/AcceptInvite"
 import MapWithPins from "./components/MapWithPins/MapWithPins"
+import Album from "./components/Album/Album"
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -58,8 +59,9 @@ const App = () => {
           />
           <Route path="/add/activity/:TripId" element={<AddActivity />} />
           <Route path="/list/activities/:TripId" element={<ListActivities />} />
-          <Route path="/edit/activity/:id" element={<EditActivity />} />{" "}
-          <Route path="/Map" element={<MapWithPins />} />{" "}
+          <Route path="/edit/activity/:id" element={<EditActivity />} />
+          <Route path="/Map" element={<MapWithPins />} />
+          <Route path="/album/:TripId" element={<Album />} />
         </Routes>
       </main>
     </div>

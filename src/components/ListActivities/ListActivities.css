@@ -1,0 +1,138 @@
+.activitiy-container {
+  border: 1px solid black;
+
+  margin: 10px;
+  width: 50%;
+
+  background-color: white;
+  border-radius: 25px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.activity-card {
+  display: flex;
+  justify-content: flex-start;
+}
+.activity-image-container {
+  width: 400px;
+  height: 300px;
+  overflow: hidden;
+  padding: 10px;
+  border-radius: 25px;
+}
+
+.kabab-menu {
+  padding: 10px;
+}
+
+.comment-container {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.activity-image-container img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 25px;
+}
+
+.activity-details {
+  flex: 2;
+  padding: 20px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.activity-details h3 {
+  color: black;
+  font-size: 30px;
+}
+
+.activity-details a {
+  color: grey;
+  font-size: 20px;
+}
+
+.activity-details p {
+  color: black;
+  font-size: 15px;
+}
+
+.reactions {
+  margin-top: 15px;
+}
+
+.reactions button {
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.reactions button:hover {
+  transform: scale(1.2);
+}
+
+.activity-menus {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.activity-header {
+  width: 50%;
+
+  padding: 10px;
+  margin: 0 auto;
+}
+
+.activity-header h1 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.activity-header p {
+  font-size: 14px;
+  color: #6c757d;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.add-activity-button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.line {
+  margin: 20px 0;
+}
+
+.add-activity-button {
+  background-color: #1f2a56;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: end;
+  gap: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.add-activity-button:hover {
+  background-color: #3b4a7a;
+}
+
+.add-activity-button i {
+  font-size: 18px;
+}

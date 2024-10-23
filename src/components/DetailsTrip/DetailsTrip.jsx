@@ -1,17 +1,15 @@
-
-import React, { useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
-import Client from '../../services/api'
-import Overview from '../overview/Overview'
-import ManageUsers from '../ManageUsers/ManageUsers'
-import InviteModal from '../InviteModal/InviteModal'
-import Notes from '../Notes/Notes'
-import ListActivities from '../ListActivities/ListActivities'
+import React, { useEffect, useState } from "react"
+import { useParams, useNavigate } from "react-router-dom"
+import Client from "../../services/api"
+import Overview from "../overview/Overview"
+import ManageUsers from "../ManageUsers/ManageUsers"
+import InviteModal from "../InviteModal/InviteModal"
+import Notes from "../Notes/Notes"
+import ListActivities from "../ListActivities/ListActivities"
 import Album from "../Album/Album"
 import Checklist from "../Checklist/Checklist"
-import TripCalendar from '../Calendar/Calendar'
-import './DetailsTrip.css'
-
+import TripCalendar from "../Calendar/Calendar"
+import "./DetailsTrip.css"
 
 const DetailsTrip = ({ user }) => {
   const { id } = useParams()
@@ -24,7 +22,6 @@ const DetailsTrip = ({ user }) => {
   const [inviteEmail, setInviteEmail] = useState("")
   const [inviteMessage, setInviteMessage] = useState(null)
   const [activeTab, setActiveTab] = useState("overview")
-
 
   const [isInviteModalOpen, setInviteModalOpen] = useState(false)
 
@@ -57,15 +54,15 @@ const DetailsTrip = ({ user }) => {
     try {
       const response = await Client.post(`/invite/add`, {
         tripId: id,
-        email: inviteEmail
+        email: inviteEmail,
       })
       setInviteMessage(response.data.message)
-      setInviteEmail('')
+      setInviteEmail("")
 
       const updatedInvites = await Client.get(`/invite/list/${id}`)
       setInvites(updatedInvites.data.invites)
     } catch (error) {
-      setInviteMessage(error.response?.data?.message || 'Failed to send invite')
+      setInviteMessage(error.response?.data?.message || "Failed to send invite")
     }
   }
 
@@ -76,19 +73,19 @@ const DetailsTrip = ({ user }) => {
   const handleDeleteInvite = async (inviteId) => {
     try {
       await Client.delete(`/invite/delete/${inviteId}`)
-      setInviteMessage('Invite deleted successfully')
+      setInviteMessage("Invite deleted successfully")
 
       const updatedInvites = await Client.get(`/invite/list/${id}`)
       setInvites(updatedInvites.data.invites)
     } catch (error) {
       setInviteMessage(
-        error.response?.data?.message || 'Failed to delete invite'
+        error.response?.data?.message || "Failed to delete invite"
       )
     }
   }
 
   const handleActivityAdded = (activity) => {
-    console.log('Activity added:', activity)
+    console.log("Activity added:", activity)
   }
 
   if (loading) return <p>Loading...</p>
@@ -100,13 +97,12 @@ const DetailsTrip = ({ user }) => {
         <div className="Details">
           <h2>{tripDetails.title}</h2>
 
-
           <nav className="navBarDetails">
-            <button onClick={() => setActiveTab('overview')} className="DBtns">
+            <button onClick={() => setActiveTab("overview")} className="DBtns">
               Overview
             </button>
             <button
-              onClick={() => setActiveTab('manage-users')}
+              onClick={() => setActiveTab("manage-users")}
               className="DBtns"
             >
               Manage Users
@@ -120,35 +116,31 @@ const DetailsTrip = ({ user }) => {
               </button>
             )}
             <button
-              onClick={() => setActiveTab('activities')}
+              onClick={() => setActiveTab("activities")}
               className="DBtns"
             >
               Activities
             </button>
             <button
               onClick={() => {
-                setActiveTab('notes')
-
+                setActiveTab("notes")
               }}
               className="DBtns"
             >
               Notes
             </button>
 
-            <button onClick={() => setActiveTab('calendar')} className="DBtns">
+            <button onClick={() => setActiveTab("calendar")} className="DBtns">
               Calendar
             </button>
 
- <button onClick={() => setActiveTab("album")} className="DBtns">
+            <button onClick={() => setActiveTab("album")} className="DBtns">
               Album
             </button>
             <button onClick={() => setActiveTab("checklist")} className="DBtns">
               checklist
             </button>
           </nav>
-
-
-
 
           <div>
             {activeTab === "overview" && <Overview tripDetails={tripDetails} />}
@@ -160,27 +152,24 @@ const DetailsTrip = ({ user }) => {
               />
             )}
 
-            {activeTab === 'activities' && (
+            {activeTab === "activities" && (
               <div>
-                <button onClick={handleAddActivity}>Add Activity</button>
                 <ListActivities
                   tripId={id}
                   onActivityAdded={handleActivityAdded}
+                  handleAddActivity={handleAddActivity}
                 />
               </div>
             )}
 
-            {activeTab === 'notes' && <Notes tripId={id} />}
-            {activeTab === 'calendar' && (
+            {activeTab === "notes" && <Notes tripId={id} />}
+            {activeTab === "calendar" && (
               <TripCalendar tripId={id} onActivityAdded={handleActivityAdded} />
-
-
             )}
-           
+
             {activeTab === "album" && <Album tripId={id} />}
             {activeTab === "checklist" && <Checklist tripId={id} />}
           </div>
-
 
           {isInviteModalOpen && (
             <InviteModal
@@ -192,9 +181,7 @@ const DetailsTrip = ({ user }) => {
             />
           )}
 
-         
           {inviteMessage && <p style={{ color: "green" }}>{inviteMessage}</p>}
-
         </div>
       ) : (
         <p>No trip details found</p>

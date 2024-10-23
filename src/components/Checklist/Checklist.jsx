@@ -8,6 +8,21 @@ const Checklist = ({ tripId }) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const response = await Client.get(`/checklist/list/${tripId}`)
+        setTasks(response.data.data)
+      } catch (error) {
+        setError("Error fetching tasks.")
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchTasks()
+  }, [tripId])
+
   // Add a new task
   const handleAddTask = async (e) => {
     e.preventDefault()

@@ -1,0 +1,48 @@
+.comment-icon-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.comment-icon-button i {
+  font-size: 1.5rem;
+}
+
+.comment-icon-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.comment-input {
+  width: 92%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  transition: border 0.3s ease;
+}
+
+.user-comments {
+  color: black;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  list-style-type: none;
+}
+.send-icon {
+  display: inline-block;
+  transform: rotate(45deg);
+  font-size: 1rem;
+}
+
+.send-icon-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}

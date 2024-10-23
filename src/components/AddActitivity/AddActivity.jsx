@@ -69,10 +69,9 @@ const AddActivity = () => {
 
   return (
     <LoadScript googleMapsApiKey={GOOGLE_MAPS_API_KEY} libraries={["places"]}>
-      <form ref={formRef} onSubmit={handleSubmit} className="activity-form">
-        <h1>Add Activity</h1>
-        <h5>Suggest an activity for your group to do on your trip.</h5>
+      <h1 className="activity-title">Add Activity</h1>
 
+      <form ref={formRef} onSubmit={handleSubmit} className="activity-form">
         <div className="ActivityInfo">
           <div className="ActivityName">
             <label htmlFor="name">Activity Name</label>

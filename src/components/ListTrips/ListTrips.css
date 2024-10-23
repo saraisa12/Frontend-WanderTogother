@@ -1,13 +1,15 @@
 .trips-container {
-  max-width: 800px;
-  margin: 0 auto;
+  min-height: 100vh;
+  background-color: white;
   padding: 20px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .trips-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   margin-bottom: 20px;
 }
@@ -15,7 +17,7 @@
 .trips-header h2 {
   font-size: 36px;
   font-weight: bold;
-  color: white;
+  color: black;
 }
 
 .add-trip-button {

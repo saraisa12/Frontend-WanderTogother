@@ -68,14 +68,19 @@ const TripCalendar = ({ tripId, onActivityAdded }) => {
           )
         }}
       />
-      <h3>Activities on {formatDate(value)}:</h3>
-      <ul>
-        {dateActivities[formatDate(value)]?.map((activity, index) => (
-          <li key={index}>{activity}</li>
-        )) || <li>No activities for this date</li>}
-      </ul>
+      {/* Remove this section to not show activities for the selected date */}
+      {/* {dateActivities[formatDate(value)]?.length > 0 && (
+        <>
+          <h3>Activities on {formatDate(value)}:</h3>
+          <ul>
+            {dateActivities[formatDate(value)].map((activity, index) => (
+              <li key={index}>{activity}</li>
+            ))}
+          </ul>
+        </>
+      )} */}
     </div>
   )
 }
 
-export default TripCalendar // Ensure this export is named correctly
+export default TripCalendar

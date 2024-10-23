@@ -19,10 +19,8 @@ const DetailsTrip = ({ user }) => {
   const [error, setError] = useState(null)
   const [inviteEmail, setInviteEmail] = useState('')
   const [inviteMessage, setInviteMessage] = useState(null)
-  const [activeTab, setActiveTab] = useState('overview')
+  const [activeTab, setActiveTab] = useState('overview') // Set the default tab
   const [isInviteModalOpen, setInviteModalOpen] = useState(false)
-  const [showNotes, setShowNotes] = useState(false)
-  const [showCalendar, setShowCalendar] = useState(false)
 
   useEffect(() => {
     const fetchTripDetails = async () => {
@@ -122,17 +120,14 @@ const DetailsTrip = ({ user }) => {
             </button>
             <button
               onClick={() => {
-                setShowNotes(true)
                 setActiveTab('notes')
               }}
+              className="DBtns"
             >
               Notes
             </button>
-            <button
-              onClick={() => setShowCalendar(!showCalendar)}
-              className="DBtns"
-            >
-              {showCalendar ? 'Hide Calendar' : 'Show Calendar'}
+            <button onClick={() => setActiveTab('calendar')} className="DBtns">
+              Calendar
             </button>
           </nav>
 
@@ -154,8 +149,8 @@ const DetailsTrip = ({ user }) => {
                 />
               </div>
             )}
-            {activeTab === 'notes' && showNotes && <Notes tripId={id} />}
-            {showCalendar && (
+            {activeTab === 'notes' && <Notes tripId={id} />}
+            {activeTab === 'calendar' && (
               <TripCalendar tripId={id} onActivityAdded={handleActivityAdded} />
             )}
           </div>

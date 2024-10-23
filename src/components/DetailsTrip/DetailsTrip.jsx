@@ -101,12 +101,7 @@ const DetailsTrip = ({ user }) => {
             <button onClick={() => setActiveTab("overview")} className="DBtns">
               Overview
             </button>
-            <button
-              onClick={() => setActiveTab("manage-users")}
-              className="DBtns"
-            >
-              Manage Users
-            </button>
+
             {tripDetails.creator === user?.id && (
               <button
                 onClick={() => setInviteModalOpen(true)}
@@ -143,9 +138,9 @@ const DetailsTrip = ({ user }) => {
           </nav>
 
           <div>
-            {activeTab === "overview" && <Overview tripDetails={tripDetails} />}
-            {activeTab === "manage-users" && (
-              <ManageUsers
+            {activeTab === "overview" && (
+              <Overview
+                tripDetails={tripDetails}
                 invites={invites}
                 participants={tripDetails.participants}
                 handleDeleteInvite={handleDeleteInvite}

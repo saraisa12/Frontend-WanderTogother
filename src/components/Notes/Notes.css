@@ -1,0 +1,62 @@
+.Notes {
+  background-color: rgba(255, 255, 255, 0.288);
+  border: 4px solid white;
+  border-radius: 40px;
+}
+
+.NewNote {
+  height: 40px;
+  width: 30pc;
+  border-radius: 60px;
+  border: none;
+}
+
+.AddNoteBtn {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  height: 40px;
+  width: 7pc;
+  padding: 0.5rem 1rem;
+  margin-left: 7px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+}
+.AddNoteBtn:hover {
+  background-color: #168e32;
+}
+
+.NotesAdded {
+  margin-bottom: 1rem;
+  padding: 2rem;
+  border: 3px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.NotesAdded p {
+  color: black;
+  padding-bottom: 20px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.NAddedDelBtn {
+  float: right;
+  padding: 0.25rem 0.7rem;
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.NAddedDelBtn:hover {
+  background-color: #ff0019;
+}
+
+.pNote {
+  text-wrap: wrap;
+  width: 90%;
+}

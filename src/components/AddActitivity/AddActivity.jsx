@@ -2,6 +2,7 @@ import { useRef, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import Client from "../../services/api"
 import { LoadScript, Autocomplete } from "@react-google-maps/api"
+import "./AddActivity.css"
 
 const GOOGLE_MAPS_API_KEY = "AIzaSyBgqMJ0I9Amizf8K6QZRumavkhx9zXzxxM"
 const libraries = ["places"]
@@ -69,39 +70,63 @@ const AddActivity = () => {
   return (
     <LoadScript googleMapsApiKey={GOOGLE_MAPS_API_KEY} libraries={["places"]}>
       <form ref={formRef} onSubmit={handleSubmit} className="activity-form">
-        <h2>Add Activity</h2>
+        <h1>Add Activity</h1>
+        <h5>Suggest an activity for your group to do on your trip.</h5>
 
-        <div>
-          <label htmlFor="name">Activity Name</label>
-          <input type="text" id="name" name="name" required />
-        </div>
-        <div>
-          <label htmlFor="description">Description</label>
-          <textarea id="description" name="description" />
-        </div>
-
-        <label htmlFor="Date">Date</label>
-        <input type="Date" id="Date" name="Date" required />
-
-        <div>
-          <label htmlFor="location">Location</label>
-          <Autocomplete
-            onLoad={setAutocomplete}
-            onPlaceChanged={onPlaceChanged}
-          >
+        <div className="ActivityInfo">
+          <div className="ActivityName">
+            <label htmlFor="name">Activity Name</label>
+            <br />
             <input
               type="text"
-              id="location"
-              name="location"
-              placeholder="Enter a location"
+              id="name"
+              name="name"
+              placeholder="Activity Name"
               required
             />
-          </Autocomplete>
-        </div>
+          </div>
+          <div className="ActivityDes">
+            <label htmlFor="description">Description</label>
+            <br />
+            <textarea
+              id="description"
+              name="description"
+              placeholder="Description"
+            />
+          </div>
 
-        <button type="submit" className="submit-button" disabled={loading}>
-          {loading ? "Adding..." : "Add Activity"}
-        </button>
+          <div className="ActivityDate">
+            <label htmlFor="Date">Date</label>
+            <br />
+            <input
+              type="Date"
+              id="Date"
+              name="Date"
+              placeholder="Date"
+              required
+            />
+          </div>
+
+          <div className="ActivityLocatoin">
+            <label htmlFor="location">Location</label>
+            <Autocomplete
+              onLoad={setAutocomplete}
+              onPlaceChanged={onPlaceChanged}
+            >
+              <input
+                type="text"
+                id="location"
+                name="location"
+                placeholder="Enter a location"
+                required
+              />
+            </Autocomplete>
+          </div>
+
+          <button type="submit" className="ActivityBtn" disabled={loading}>
+            {loading ? "Adding..." : "Add Activity"}
+          </button>
+        </div>
       </form>
     </LoadScript>
   )

@@ -1,0 +1,71 @@
+.edit-activity-container {
+  background-color: #e4e1de9b;
+  border: 2px solid #17224d;
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
+}
+
+.edit-activity-title {
+  text-align: center;
+  color: #17224d;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.edit-activity-input,
+.edit-activity-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #17224d;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+  padding-right: 0;
+}
+
+.edit-activity-input:focus,
+.edit-activity-textarea:focus {
+  border-color: #17224d;
+  outline: none;
+}
+
+.edit-activity-label {
+  font-size: 16px;
+  color: #17224d;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.edit-activity-file {
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.edit-activity-button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background-color: #17224d;
+  color: white;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-activity-button:hover {
+  background-color: #405381;
+}
+
+.edit-activity-loading,
+.edit-activity-error {
+  text-align: center;
+  font-size: 16px;
+  color: #ff4b4b;
+}

@@ -7,6 +7,7 @@ import InviteModal from "../InviteModal/InviteModal"
 import Notes from "../Notes/Notes"
 import ListActivities from "../ListActivities/ListActivities" // Import ListActivities
 import Album from "../Album/Album"
+import Checklist from "../Checklist/Checklist"
 import "./DetailsTrip.css"
 
 const DetailsTrip = ({ user }) => {
@@ -120,7 +121,6 @@ const DetailsTrip = ({ user }) => {
             </button>
             <button
               onClick={() => {
-                setShowNotes(true)
                 setActiveTab("notes")
               }}
               className="DBtns"
@@ -129,6 +129,9 @@ const DetailsTrip = ({ user }) => {
             </button>
             <button onClick={() => setActiveTab("album")} className="DBtns">
               Album
+            </button>
+            <button onClick={() => setActiveTab("checklist")} className="DBtns">
+              checklist
             </button>
           </nav>
 
@@ -150,6 +153,7 @@ const DetailsTrip = ({ user }) => {
             )}
             {activeTab === "notes" && showNotes && <Notes tripId={id} />}
             {activeTab === "album" && <Album tripId={id} />}
+            {activeTab === "checklist" && <Checklist tripId={id} />}
           </div>
 
           {/* Invite Modal */}

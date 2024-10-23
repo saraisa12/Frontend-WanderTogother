@@ -36,6 +36,7 @@
   font-stretch: 50%;
   padding-left: 100px;
   padding-top: 50px;
+  animation: fadeIn 1.5s ease-in-out;
 }
 
 .hero-subtitle {
@@ -44,6 +45,7 @@
   margin-top: 1rem;
   padding-left: 100px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  animation: fadeIn 1s ease-in-out;
 }
 
 .start-planning-btn {
@@ -57,9 +59,43 @@
   font-size: 1.2rem;
   text-align: center;
   cursor: pointer;
-  width: 200px;
+  width: 19pc;
+  animation: pulse 2s infinite;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .start-planning-btn:hover {
   background-color: #13bcda;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(-100px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

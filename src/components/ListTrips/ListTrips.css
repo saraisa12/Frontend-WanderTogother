@@ -4,6 +4,9 @@
   margin: 0 auto;
   padding: 20px;
   text-align: center;
+  background-color: rgba(255, 255, 255, 0.425);
+  border: 3px solid white;
+  border-radius: 20px;
 }
 
 /* Header with "My Trips" and "Add new Trip" button */
@@ -14,6 +17,11 @@
   margin-bottom: 20px;
 }
 
+.trips-header h2 {
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 /* "Add new Trip" button */
 .add-trip-button {
   background-color: #0056b3;
@@ -22,6 +30,7 @@
   border-radius: 5px;
   text-decoration: none;
   font-weight: bold;
+  font-family: "Courier New", Courier, monospace;
 }
 
 /* List of trips */

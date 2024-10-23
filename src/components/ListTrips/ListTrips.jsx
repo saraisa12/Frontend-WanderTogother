@@ -4,6 +4,7 @@ import Client from "../../services/api"
 import "./ListTrips.css" // Add a CSS file for styling
 
 const ListTrips = ({ user }) => {
+  console.log({ user })
   const [trips, setTrips] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)

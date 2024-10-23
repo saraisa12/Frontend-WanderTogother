@@ -1,19 +1,20 @@
-import './App.css'
-import { Route, Routes } from 'react-router'
-import Nav from './components/Nav/Nav'
-import Register from './pages/Register/Register'
-import SignIn from './pages/SignIn/SignIn'
-import Home from './pages/Home/Home'
-import AddTrip from './components/AddTrip/AddTrip'
-import ListTrips from './components/ListTrips/ListTrips'
-import DetailsTrip from './components/DetailsTrip/DetailsTrip'
-import AddActivity from './components/AddActitivity/AddActivity'
-import ListActivities from './components/ListActivities/ListActivities'
-import EditActivity from './components/EditActivity/EditActivity'
-import { CheckSession } from './services/Auth'
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import AcceptInvite from './components/AcceptInvite/AcceptInvite'
+import "./App.css"
+import { Route, Routes } from "react-router"
+import Nav from "./components/Nav/Nav"
+import Register from "./pages/Register/Register"
+import SignIn from "./pages/SignIn/SignIn"
+import Home from "./pages/Home/Home"
+import AddTrip from "./components/AddTrip/AddTrip"
+import ListTrips from "./components/ListTrips/ListTrips"
+import DetailsTrip from "./components/DetailsTrip/DetailsTrip"
+import AddActivity from "./components/AddActitivity/AddActivity"
+import ListActivities from "./components/ListActivities/ListActivities"
+import EditActivity from "./components/EditActivity/EditActivity"
+import { CheckSession } from "./services/Auth"
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import AcceptInvite from "./components/AcceptInvite/AcceptInvite"
+import MapWithPins from "./components/MapWithPins/MapWithPins"
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -29,7 +30,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem("token")
 
     if (token) {
       checkToken()
@@ -55,9 +56,10 @@ const App = () => {
             path="/invite/accept/:inviteId"
             element={<AcceptInvite handleLogOut={handleLogOut} />}
           />
-          <Route path="/add/activity" element={<AddActivity />} />
-          <Route path="/list/activities" element={<ListActivities />} />
-          <Route path="/edit/activity/:id" element={<EditActivity />} />{' '}
+          <Route path="/add/activity/:TripId" element={<AddActivity />} />
+          <Route path="/list/activities/:TripId" element={<ListActivities />} />
+          <Route path="/edit/activity/:id" element={<EditActivity />} />{" "}
+          <Route path="/Map" element={<MapWithPins />} />{" "}
         </Routes>
       </main>
     </div>

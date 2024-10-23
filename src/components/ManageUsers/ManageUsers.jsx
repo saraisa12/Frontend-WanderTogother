@@ -1,15 +1,20 @@
+import "./ManageUsers.css"
+
 const ManageUsers = ({ invites, handleDeleteInvite }) => {
   return (
-    <div>
+    <div className="MangageUsers">
       {/* List of invites */}
-      <h3>Invites</h3>
+      <h3>📧 Invites</h3>
       {invites.length > 0 ? (
         <ul>
           {invites.map((invite) => (
             <li key={invite._id}>
               {invite.invitee.email} - {invite.status} - Invited on:{" "}
               {new Date(invite.invitedAt).toLocaleDateString()}
-              <button onClick={() => handleDeleteInvite(invite._id)}>
+              <button
+                onClick={() => handleDeleteInvite(invite._id)}
+                className="BtnMUsers"
+              >
                 Delete Invite
               </button>
             </li>

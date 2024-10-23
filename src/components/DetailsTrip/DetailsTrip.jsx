@@ -1,13 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import Client from '../../services/api'
-import Overview from '../overview/Overview'
-import ManageUsers from '../ManageUsers/ManageUsers'
-import InviteModal from '../InviteModal/InviteModal'
+
+import React, { useEffect, useState } from "react"
+import { useParams, useNavigate } from "react-router-dom" // Import useNavigate
+import Client from "../../services/api"
+import Overview from "../overview/Overview"
+import ManageUsers from "../ManageUsers/ManageUsers"
+import InviteModal from "../InviteModal/InviteModal"
 import Notes from '../Notes/Notes'
+import ListActivities from "../ListActivities/ListActivities" // Import ListActivities
+import "./DetailsTrip.css"
+
 
 const DetailsTrip = ({ user }) => {
-  const { id } = useParams()
+  const { id } = useParams() // Get tripId from the URL
+  const navigate = useNavigate() // Get the navigate function
+
   const [tripDetails, setTripDetails] = useState(null)
   const [invites, setInvites] = useState([])
   const [loading, setLoading] = useState(true)
@@ -43,23 +49,79 @@ const DetailsTrip = ({ user }) => {
     fetchInvites()
   }, [id])
 
+
+  const handleSendInvite = async () => {
+    try {
+      const response = await Client.post(`/invite/add`, {
+        tripId: id,
+        email: inviteEmail,
+      })
+      setInviteMessage(response.data.message)
+      setInviteEmail("") // Clear the input after sending
+
+      // Refresh the invites list to show the new invite
+      const updatedInvites = await Client.get(`/invite/list/${id}`)
+      setInvites(updatedInvites.data.invites)
+    } catch (error) {
+      setInviteMessage(error.response?.data?.message || "Failed to send invite")
+    }
+  }
+
+  const handleAddActivity = () => {
+    navigate(`/add/activity/${id}`)
+  }
+
+  const handleDeleteInvite = async (inviteId) => {
+    try {
+      await Client.delete(`/invite/delete/${inviteId}`)
+      setInviteMessage("Invite deleted successfully")
+
+      // Refresh the invites list after deletion
+      const updatedInvites = await Client.get(`/invite/list/${id}`)
+      setInvites(updatedInvites.data.invites)
+    } catch (error) {
+      setInviteMessage(
+        error.response?.data?.message || "Failed to delete invite"
+      )
+    }
+  }
+
   if (loading) return <p>Loading...</p>
   if (error) return <p style={{ color: 'red' }}>{error}</p>
 
   return (
     <div>
       {tripDetails ? (
-        <div>
+        <div className="Details">
           <h2>{tripDetails.title}</h2>
-          <nav>
-            <button onClick={() => setActiveTab('overview')}>Overview</button>
-            <button onClick={() => setActiveTab('manage-users')}>
+
+
+          {/* Tab Navigation */}
+          <nav className="navBarDetails">
+            <button onClick={() => setActiveTab("overview")} className="DBtns">
+              Overview
+            </button>
+            <button
+              onClick={() => setActiveTab("manage-users")}
+              className="DBtns"
+            >
+
               Manage Users
             </button>
             {tripDetails.creator === user.id && (
-              <button onClick={() => setInviteModalOpen(true)}>Invite</button>
+              <button
+                onClick={() => setInviteModalOpen(true)}
+                className="DBtns"
+              >
+                Invite
+              </button>
             )}
-            <button onClick={() => setActiveTab('activities')}>
+
+            <button
+              onClick={() => setActiveTab("activities")}
+              className="DBtns"
+            >
+
               Activities
             </button>
             <button
@@ -81,8 +143,14 @@ const DetailsTrip = ({ user }) => {
                 handleDeleteInvite={handleDeleteInvite}
               />
             )}
-            {activeTab === 'activities' && (
-              <div>Activities content goes here.</div>
+
+            {activeTab === "activities" && (
+              <div>
+                <button onClick={handleAddActivity}>Add Activity</button>{" "}
+                {/* Add Activity Button */}
+                <ListActivities tripId={id} /> {/* Pass id as tripId */}
+              </div>
+
             )}
             {activeTab === 'notes' && showNotes && (
               <>

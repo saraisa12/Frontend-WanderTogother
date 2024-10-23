@@ -8,7 +8,6 @@ const Album = ({ tripId }) => {
   const [error, setError] = useState(null)
   const [uploading, setUploading] = useState(false)
 
-  /*/
   useEffect(() => {
     const fetchAlbum = async () => {
       try {
@@ -21,7 +20,7 @@ const Album = ({ tripId }) => {
       }
     }
     fetchAlbum()
-  }, [tripId])*/
+  }, [tripId])
 
   // Handle image upload
   const handleUpload = async (e) => {

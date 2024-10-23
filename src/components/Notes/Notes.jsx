@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from "react"
-import axios from "axios"
-import "./Notes.css"
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import './Notes.css'
 
 const Notes = ({ tripId }) => {
   const [notes, setNotes] = useState([])
-  const [newNote, setNewNote] = useState("")
-  const [error, setError] = useState("")
+  const [newNote, setNewNote] = useState('')
+  const [error, setError] = useState('')
 
   useEffect(() => {
     const fetchNotes = async () => {
       try {
         const res = await axios.get(`http://localhost:4000/notes/${tripId}`)
-        console.log("Fetched notes:", res.data)
+        console.log('Fetched notes:', res.data)
 
         if (Array.isArray(res.data)) {
           setNotes(res.data)
         } else {
-          console.error("Fetched data is not an array:", res.data)
-          setError("Invalid notes data")
+          console.error('Fetched data is not an array:', res.data)
+          setError('Invalid notes data')
         }
       } catch (error) {
-        console.error("Fetch notes error:", error)
-        setError("Unable to fetch notes")
+        console.error('Fetch notes error:', error)
+        setError('Unable to fetch notes')
       }
     }
 
@@ -32,21 +32,21 @@ const Notes = ({ tripId }) => {
 
   const addNote = async () => {
     if (!newNote) {
-      setError("Note cannot be empty")
+      setError('Note cannot be empty')
       return
     }
 
     try {
       const res = await axios.post(`http://localhost:4000/notes`, {
         content: newNote,
-        tripId,
+        tripId
       })
       setNotes((prevNotes) => [...prevNotes, res.data])
-      setNewNote("")
-      setError("")
+      setNewNote('')
+      setError('')
     } catch (error) {
-      console.error("Error adding note:", error)
-      setError("Failed to add note")
+      console.error('Error adding note:', error)
+      setError('Failed to add note')
     }
   }
 
@@ -55,47 +55,43 @@ const Notes = ({ tripId }) => {
       await axios.delete(`http://localhost:4000/notes/${noteId}`)
       setNotes((prevNotes) => prevNotes.filter((note) => note._id !== noteId))
     } catch (error) {
-      console.error("Error deleting note:", error)
-      setError("Failed to delete note")
+      console.error('Error deleting note:', error)
+      setError('Failed to delete note')
     }
   }
 
   return (
-    <div
-      style={{ maxWidth: "600px", margin: "0 auto", padding: "1rem" }}
-      className="Notes"
-    >
+    <div className="NotesContainer">
       <h2>Notes</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <div style={{ marginBottom: "1.5rem" }}>
+      {error && <p className="ErrorMessage">{error}</p>}
+      <div className="InputContainer">
         <input
           type="text"
           value={newNote}
           onChange={(e) => setNewNote(e.target.value)}
           placeholder="Write a new note..."
-          className="NewNote"
+          className="NewNoteInput"
         />
-        <button onClick={addNote} className="AddNoteBtn">
+        <button onClick={addNote} className="AddNewNoteButton">
           Add Note
         </button>
       </div>
-      <div>
+      <div className="NotesList">
         {Array.isArray(notes) && notes.length > 0 ? (
           notes.map((note) => (
-            <div className="NotesAdded" key={note._id}>
-              {note.title && <h3>{note.title}</h3>}
-              <p className="pNote">{note.content}</p>
+            <div className="SingleNote" key={note._id}>
+              {note.title && <h3 className="NoteTitle">{note.title}</h3>}
+              <p className="NoteContent">{note.content}</p>
               <button
-                className="NAddedDelBtn"
+                className="DeleteNoteButton"
                 onClick={() => deleteNote(note._id)}
-                style={{}}
               >
                 Delete
               </button>
             </div>
           ))
         ) : (
-          <p className="NoNotesAvailable">No notes available</p>
+          <p className="NoNotesMessage">No notes available</p>
         )}
       </div>
     </div>

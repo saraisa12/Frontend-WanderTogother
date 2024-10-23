@@ -12,6 +12,7 @@
   background-color: #17224d;
   text-align: center;
   padding: 10px;
+  margin-bottom: 20px;
 }
 
 .DBtns {
@@ -31,4 +32,9 @@
   -o-transition: all 0.1s ease-in;
   -webkit-transition: all 0.1s ease-in;
   transition: all 0.1s ease-in;
+}
+
+.DBtns:active,
+.DBtns:focus {
+  color: #007bff;
 }

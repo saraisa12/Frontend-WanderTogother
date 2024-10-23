@@ -22,8 +22,8 @@ const DetailsTrip = ({ user }) => {
   const [error, setError] = useState(null)
   const [inviteEmail, setInviteEmail] = useState("")
   const [inviteMessage, setInviteMessage] = useState(null)
-
   const [activeTab, setActiveTab] = useState("overview")
+
 
   const [isInviteModalOpen, setInviteModalOpen] = useState(false)
 
@@ -127,7 +127,9 @@ const DetailsTrip = ({ user }) => {
             <button
               onClick={() => {
 
+
                 setActiveTab('notes')
+
 
               }}
               className="DBtns"
@@ -166,9 +168,11 @@ const DetailsTrip = ({ user }) => {
                 />
               </div>
             )}
+
             {activeTab === 'notes' && <Notes tripId={id} />}
             {activeTab === 'calendar' && (
               <TripCalendar tripId={id} onActivityAdded={handleActivityAdded} />
+
 
             )}
            

@@ -1,0 +1,95 @@
+.activity-form h1,
+h5 {
+  color: white;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.ActivityInfo {
+  padding-top: 15px;
+  border: 3px solid white;
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 0.514);
+  width: 60%;
+  height: 24pc;
+  margin-left: 15pc;
+}
+
+.ActivityName {
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.ActivityName input {
+  width: 30pc;
+  height: 2pc;
+  margin-bottom: 8px;
+  border-radius: 30px;
+  border: none;
+}
+
+.ActivityDes {
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.ActivityDes textarea {
+  border-radius: 10px;
+  border: none;
+}
+
+.ActivityDate {
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.ActivityDate input {
+  width: 30pc;
+  height: 2pc;
+  margin-bottom: 8px;
+  border-radius: 20px;
+  border: none;
+}
+
+.ActivityLocatoin {
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding-bottom: 10px;
+}
+
+.ActivityLocatoin input {
+  width: 30pc;
+  height: 2pc;
+  border-radius: 20px;
+  border: none;
+}
+
+.ActivityBtn {
+  margin-left: 140px;
+  margin-top: 10px;
+  background-color: #17224d;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  width: 30pc;
+  height: 2pc;
+  border-radius: 40px;
+}
+
+.ActivityBtn:hover {
+  background-color: #0b1f71;
+  border-radius: 40px;
+}

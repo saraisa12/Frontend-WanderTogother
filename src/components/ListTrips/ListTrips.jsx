@@ -42,7 +42,7 @@ const ListTrips = ({ user }) => {
       <div className="trips-header">
         <h2>My Trips</h2>
         <Link to="/add/trip" className="add-trip-button">
-          Add new Trip +
+          Add New Trip +
         </Link>
       </div>
 

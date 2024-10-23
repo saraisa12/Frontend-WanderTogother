@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom"
 import AcceptInvite from "./components/AcceptInvite/AcceptInvite"
 import MapWithPins from "./components/MapWithPins/MapWithPins"
 import Album from "./components/Album/Album"
+import Checklist from "./components/Checklist/Checklist"
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -53,6 +54,7 @@ const App = () => {
             path="/trip/details/:id"
             element={<DetailsTrip user={user} />}
           />
+
           <Route
             path="/invite/accept/:inviteId"
             element={<AcceptInvite handleLogOut={handleLogOut} />}
@@ -62,6 +64,8 @@ const App = () => {
           <Route path="/edit/activity/:id" element={<EditActivity />} />
           <Route path="/Map" element={<MapWithPins />} />
           <Route path="/album/:TripId" element={<Album />} />
+
+          <Route path="/checklist/:tripId" element={<Checklist />} />
         </Routes>
       </main>
     </div>

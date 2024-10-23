@@ -1,4 +1,3 @@
-/* Modal container */
 .modal {
   display: flex;
   justify-content: center;
@@ -12,27 +11,33 @@
   z-index: 1000;
 }
 
-/* Modal content */
 .modal-content {
   background-color: rgb(255, 255, 255);
-  padding: 40px;
+  padding: 60px;
   border: 5px solid #17224d;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   width: 100%;
-  max-width: 500px;
+  max-width: 800px;
+  max-height: 90%;
+  overflow-y: auto;
   position: relative;
   text-align: center;
 }
 
 .modal-content h3 {
   letter-spacing: 1px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Arial', sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
 .modal-content h6 {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Arial', sans-serif;
+  font-size: 18px;
   padding-top: 5px;
+  margin-bottom: 20px;
 }
 
 .sendLogo {
@@ -42,28 +47,31 @@
 }
 
 .EmailInput {
-  padding: 5px;
-  width: 19pc;
+  padding: 10px;
+  width: 80%;
   border-radius: 8px;
   border: 1px solid black;
+  margin-bottom: 20px;
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
 }
 
 .InviteModelBtn {
   background-color: #17224d;
   border-radius: 8px;
   color: white;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: bold;
-  height: 30px;
-  width: 120px;
+  height: 40px;
+  width: 150px;
   margin-top: 20px;
+  font-family: 'Arial', sans-serif;
 }
 
 .InviteModelBtn:hover {
   background-color: #0b1f71;
 }
 
-/* Close button */
 .modal-content .close {
   position: absolute;
   top: 10px;
@@ -80,4 +88,7 @@
 
 .success-message {
   color: green;
+  margin-top: 20px;
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
 }

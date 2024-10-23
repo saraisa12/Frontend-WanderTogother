@@ -1,81 +1,94 @@
-import React, { useState, useEffect } from "react"
-import Client from "../../services/api"
-import "./Checklist.css"
+import React, { useState, useEffect } from 'react'
+import Client from '../../services/api'
+import './Checklist.css'
 
 const Checklist = ({ tripId }) => {
   const [tasks, setTasks] = useState([])
-  const [newTask, setNewTask] = useState("")
+  const [newTask, setNewTask] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  // Add a new task
   const handleAddTask = async (e) => {
     e.preventDefault()
     if (!newTask.trim()) return
 
     try {
-      const response = await Client.post("/checklist/add", {
+      const response = await Client.post('/checklist/add', {
         title: newTask,
-        tripId: tripId, // Pass tripId in the request body
+        tripId: tripId
       })
       setTasks([...tasks, response.data.data])
-      setNewTask("") // Clear input
+      setNewTask('')
     } catch (error) {
-      setError("Error adding task.")
+      setError('Error adding task.')
     }
   }
 
-  // Toggle task completion
   const handleToggleComplete = async (taskId, completed) => {
     try {
       const response = await Client.put(`/checklist/update/${taskId}`, {
-        completed: !completed,
+        completed: !completed
       })
       const updatedTasks = tasks.map((task) =>
         task._id === taskId ? response.data.data : task
       )
       setTasks(updatedTasks)
     } catch (error) {
-      setError("Error toggling task.")
+      setError('Error toggling task.')
     }
   }
 
-  // Delete a task
   const handleDeleteTask = async (taskId) => {
     try {
       await Client.delete(`/checklist/delete/${taskId}`)
       setTasks(tasks.filter((task) => task._id !== taskId))
     } catch (error) {
-      setError("Error deleting task.")
+      setError('Error deleting task.')
     }
   }
 
   return (
-    <div className="checklist">
-      <h2>Checklist for Trip</h2>
+    <div className="checklist-container">
+      <h2 className="checklist-title">Checklist for Trip</h2>
 
-      <form onSubmit={handleAddTask}>
+      <form className="checklist-form" onSubmit={handleAddTask}>
         <input
+          className="checklist-input"
           type="text"
           placeholder="Add a new task"
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
         />
-        <button type="submit">Add Task</button>
+        <button className="checklist-add-button" type="submit">
+          Add Task
+        </button>
       </form>
 
-      <ul>
+      {error && <p className="checklist-error">{error}</p>}
+
+      <ul className="checklist-tasks">
         {tasks.map((task) => (
-          <li key={task._id} className={task.completed ? "completed" : ""}>
-            <label>
+          <li
+            key={task._id}
+            className={`checklist-task ${
+              task.completed ? 'checklist-task-completed' : ''
+            }`}
+          >
+            <label className="checklist-task-label">
               <input
+                className="checklist-checkbox"
                 type="checkbox"
                 checked={task.completed}
                 onChange={() => handleToggleComplete(task._id, task.completed)}
               />
               {task.title}
             </label>
-            <button onClick={() => handleDeleteTask(task._id)}>Delete</button>
+            <button
+              className="checklist-delete-button"
+              onClick={() => handleDeleteTask(task._id)}
+            >
+              Delete
+            </button>
           </li>
         ))}
       </ul>

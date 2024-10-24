@@ -31,7 +31,7 @@
 .checklist-add-button {
   padding: 10px 15px;
   margin-left: 10px;
-  background-color: #28a745;
+  background-color: #17224d;
   color: white;
   border: none;
   border-radius: 5px;
@@ -41,7 +41,7 @@
 }
 
 .checklist-add-button:hover {
-  background-color: #218838;
+  background-color: #6a67ce;
 }
 
 .checklist-error {

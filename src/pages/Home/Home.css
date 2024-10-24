@@ -1,5 +1,5 @@
 body {
-  background-image: url("/Images/Home.png");
+  background-image: url('/Images/Home.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -41,7 +41,7 @@ body {
   font-size: 6rem;
   letter-spacing: 3px;
   color: white;
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-stretch: 50%;
   padding-left: 100px;
   padding-top: 50px;
@@ -49,11 +49,11 @@ body {
 }
 
 .hero-subtitle {
-  font-size: 1.5rem;
+  font-size: 2rem;
   color: white;
   margin-top: 1rem;
   padding-left: 100px;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: 'Franklin Gothic Medium', Arial, sans-serif;
   animation: fadeIn 1s ease-in-out;
 }
 

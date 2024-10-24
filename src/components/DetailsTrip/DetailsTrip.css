@@ -1,7 +1,7 @@
 .Details h2 {
   color: #1f2a56;
   text-transform: uppercase;
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size: 40px;
 
   padding: 20px;
@@ -21,8 +21,8 @@
   background-color: transparent;
   border: none;
   font-size: large;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
 }
 .DBtns:hover {
   color: #007bff;
@@ -60,6 +60,6 @@
 
 .details-container {
   min-height: 100vh;
-  background-color: white;
+  background-color: #e6e3e3;
   padding: 20px;
 }

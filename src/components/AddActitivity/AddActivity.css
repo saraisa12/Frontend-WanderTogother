@@ -1,3 +1,13 @@
+/* Apply a specific background for Add Activity page */
+body.add-activity-page {
+  background-image: url('/Images/11.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Other styles */
 * {
   padding: 0;
   margin: 0;
@@ -5,11 +15,11 @@
 }
 
 .activity-form {
-  background-color: rgba(255, 255, 255, 0.274);
+  background-color: #e6e3e3b3;
   border-radius: 10px;
   padding: 30px 40px;
   width: 100%;
-  width: 600px;
+  max-width: 600px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   color: black;
   margin: 0 auto;

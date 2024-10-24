@@ -1,45 +1,56 @@
-import { useRef, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
-import Client from "../../services/api"
-import { LoadScript, Autocomplete } from "@react-google-maps/api"
-import "./AddActivity.css"
+import { useRef, useState, useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import Client from '../../services/api'
+import { LoadScript, Autocomplete } from '@react-google-maps/api'
+import './AddActivity.css'
 
-const GOOGLE_MAPS_API_KEY = "AIzaSyBgqMJ0I9Amizf8K6QZRumavkhx9zXzxxM"
-const libraries = ["places"]
+const GOOGLE_MAPS_API_KEY = 'AIzaSyBgqMJ0I9Amizf8K6QZRumavkhx9zXzxxM'
+const libraries = ['places']
 
 const AddActivity = () => {
   const { TripId } = useParams()
   const formRef = useRef()
   const [loading, setLoading] = useState(false)
   const [autocomplete, setAutocomplete] = useState(null)
-  const [location, setLocation] = useState({ mapsUrl: "", photoUrl: "" })
+  const [location, setLocation] = useState({ mapsUrl: '', photoUrl: '' })
   const navigate = useNavigate()
 
+  useEffect(() => {
+    document.body.classList.add('add-activity-page')
+    return () => {
+      document.body.classList.remove('add-activity-page')
+    }
+  }, [])
+
   const handleSubmit = async (event) => {
-    console.log(location)
     event.preventDefault()
     const formData = new FormData(formRef.current)
 
-    formData.append("tripId", TripId)
-    formData.append("mapsUrl", location.mapsUrl)
-    formData.append("photoUrl", location.photoUrl)
+    formData.append('tripId', TripId)
+    formData.append('mapsUrl', location.mapsUrl)
+    formData.append('photoUrl', location.photoUrl)
 
     setLoading(true)
 
     try {
-      const response = await Client.post("/activity/add", formData, {
+      const response = await Client.post('/activity/add', formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       })
-      console.log("Activity added successfully:", response.data)
+      console.log('Activity added successfully:', response.data)
       formRef.current.reset()
       navigate(`/trip/details/${TripId}`)
     } catch (error) {
-      console.error("Error adding activity:", error)
+      console.error('Error adding activity:', error)
       alert(
-        "Error adding activity: " +
+        'Error adding activity: ' +
           (error.response ? error.response.data.message : error.message)
+      )
+      // Additional logging for debugging
+      console.error(
+        'Error details:',
+        error.response ? error.response.data : error
       )
     } finally {
       setLoading(false)
@@ -49,28 +60,20 @@ const AddActivity = () => {
   const onPlaceChanged = () => {
     if (autocomplete !== null) {
       const place = autocomplete.getPlace()
-
-      // Extract the Google Maps URL and photo URL
-      const mapsUrl = place.url || ""
+      const mapsUrl = place.url || ''
       const photos = place.photos || []
       const photoUrl =
-        photos.length > 0 ? photos[0].getUrl({ maxWidth: 1080 }) : ""
+        photos.length > 0 ? photos[0].getUrl({ maxWidth: 1080 }) : ''
 
-      // Log the URLs to ensure they are correct
-      console.log("Google Maps URL:", mapsUrl)
-      console.log("Photo URL:", photoUrl)
-
-      // Set the URLs in state
       setLocation({ mapsUrl, photoUrl })
     } else {
-      console.log("Autocomplete is not loaded yet!")
+      console.log('Autocomplete is not loaded yet!')
     }
   }
 
   return (
-    <LoadScript googleMapsApiKey={GOOGLE_MAPS_API_KEY} libraries={["places"]}>
+    <LoadScript googleMapsApiKey={GOOGLE_MAPS_API_KEY} libraries={libraries}>
       <h1 className="activity-title">Add Activity</h1>
-
       <form ref={formRef} onSubmit={handleSubmit} className="activity-form">
         <div className="ActivityInfo">
           <div className="ActivityName">
@@ -91,22 +94,22 @@ const AddActivity = () => {
               id="description"
               name="description"
               placeholder="Description"
-            />
-          </div>
-
-          <div className="ActivityDate">
-            <label htmlFor="Date">Date</label>
-            <br />
-            <input
-              type="Date"
-              id="Date"
-              name="Date"
-              placeholder="Date"
               required
             />
           </div>
 
-          <div className="ActivityLocatoin">
+          <div className="ActivityDate">
+            <label htmlFor="date">Date</label> {/* Changed to lowercase */}
+            <br />
+            <input
+              type="date"
+              id="date" // Changed to lowercase
+              name="date" // Changed to lowercase
+              required
+            />
+          </div>
+
+          <div className="ActivityLocation">
             <label htmlFor="location">Location</label>
             <Autocomplete
               onLoad={setAutocomplete}
@@ -123,7 +126,7 @@ const AddActivity = () => {
           </div>
 
           <button type="submit" className="ActivityBtn" disabled={loading}>
-            {loading ? "Adding..." : "Add Activity"}
+            {loading ? 'Adding...' : 'Add Activity'}
           </button>
         </div>
       </form>

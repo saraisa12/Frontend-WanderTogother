@@ -99,12 +99,12 @@ const AddActivity = () => {
           </div>
 
           <div className="ActivityDate">
-            <label htmlFor="date">Date</label> {/* Changed to lowercase */}
+            <label htmlFor="Date">Date</label> {/* Changed to lowercase */}
             <br />
             <input
-              type="date"
-              id="date" // Changed to lowercase
-              name="date" // Changed to lowercase
+              type="Date"
+              id="Date" // Changed to lowercase
+              name="Date" // Changed to lowercase
               required
             />
           </div>

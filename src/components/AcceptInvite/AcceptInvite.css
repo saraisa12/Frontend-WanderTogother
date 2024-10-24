@@ -1,0 +1,79 @@
+/* Container to center the card on the screen */
+.accept-invite-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.invite-card {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  width: 500px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.invite-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #17224d;
+  margin-bottom: 1rem;
+}
+
+.invite-info {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.invite-info p {
+  margin: 0.5rem 0;
+}
+
+.invite-info strong {
+  color: #17224d;
+}
+
+.invite-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1.5rem;
+}
+
+/* Button styles */
+.invite-button {
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.invite-button.accept {
+  background-color: #4caf50;
+  color: white;
+}
+
+.invite-button.accept:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+.invite-button.decline {
+  background-color: #f44336;
+  color: white;
+}
+
+.invite-button.decline:hover {
+  background-color: #d32f2f;
+  transform: scale(1.05);
+}
+
+.accept-image {
+  width: 200px;
+}

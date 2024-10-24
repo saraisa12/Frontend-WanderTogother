@@ -4,7 +4,7 @@ import "./ManageUsers.css"
 import InviteButton from "../InviteButton/InviteButton"
 
 const ManageUsers = ({
-  invites,
+  invites = [], // Ensure invites is an array by default
   participants,
   handleDeleteInvite,
   tripDetails,
@@ -48,7 +48,7 @@ const ManageUsers = ({
   return (
     <>
       <div className="ManageUsers">
-        <h3>whos going</h3>
+        <h3>Who's Going</h3>
 
         <div className="participants-container">
           {participantDetails.length > 0 ? (
@@ -82,7 +82,7 @@ const ManageUsers = ({
                   <p className="date">
                     Invited on {new Date(invite.invitedAt).toLocaleDateString()}
                   </p>
-                  {/*   
+                  {/* 
                   <button
                     onClick={() => handleDeleteInvite(invite._id)}
                     className="BtnMUsers"
@@ -106,6 +106,14 @@ const ManageUsers = ({
               {acceptedInvites.map((invite) => (
                 <li key={invite._id}>
                   <p className="email">{invite.invitee.email}</p>
+                  {/* 
+                  <button
+                    onClick={() => handleDeleteInvite(invite._id)}
+                    className="BtnMUsers"
+                  >
+                    Delete Invite
+                  </button>
+                  */}
                 </li>
               ))}
             </ul>

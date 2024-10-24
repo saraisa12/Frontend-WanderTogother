@@ -49,10 +49,6 @@ const Album = ({ tripId }) => {
     }
   }
 
-  /*
-  if (loading) return <p>Loading album...</p>
-  if (error) return <p>{error}</p>*/
-
   return (
     <div className="shared-album">
       <h2>Shared Album for Trip</h2>

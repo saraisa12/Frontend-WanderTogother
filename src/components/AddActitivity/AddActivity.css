@@ -1,13 +1,11 @@
-/* Apply a specific background for Add Activity page */
 body.add-activity-page {
-  background-image: url('/Images/11.png');
+  background-image: url("/Images/11.png");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
   min-height: 100vh;
 }
 
-/* Other styles */
 * {
   padding: 0;
   margin: 0;

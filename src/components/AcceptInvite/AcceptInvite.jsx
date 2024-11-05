@@ -16,17 +16,8 @@ const AcceptInvite = ({ handleLogOut }) => {
     const handleAuthentication = async () => {
       const token = localStorage.getItem("token")
 
-      // Check if the user has been redirected from the login page
       const searchParams = new URLSearchParams(location.search)
       const redirected = searchParams.get("redirected")
-
-      // If the user has NOT been redirected from login AND a token exists, log them out
-      // if (!redirected && token) {
-      //   console.log("User logged in, logging out...")
-      //   handleLogOut() // Log out the user and remove the token
-      //   navigate(`/signin?redirect=/invite/accept/${inviteId}`)
-      //   return
-      // }
 
       if (!token) {
         console.log("No token found, redirecting to login")
@@ -117,7 +108,6 @@ const AcceptInvite = ({ handleLogOut }) => {
 
             <p>
               <strong>Organizer:</strong> {creatorEmail}{" "}
-              {/* Email of the organizer */}
             </p>
           </div>
 

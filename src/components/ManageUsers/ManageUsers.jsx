@@ -98,7 +98,6 @@ const ManageUsers = ({
           )}
         </div>
 
-        {/* Accepted Invites */}
         <div className="invite-section">
           <h4>Accepted ({acceptedInvites.length})</h4>
           {acceptedInvites.length > 0 ? (

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
-import Client from '../../services/api'
+import React, { useEffect, useState } from "react"
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api"
+import Client from "../../services/api"
 
-const GOOGLE_MAPS_API_KEY = 'AIzaSyBgqMJ0I9Amizf8K6QZRumavkhx9zXzxxM'
+const GOOGLE_MAPS_API_KEY = ""
 
 const MapWithPins = () => {
   const [trips, setTrips] = useState([])
@@ -13,7 +13,7 @@ const MapWithPins = () => {
   useEffect(() => {
     const fetchTrips = async () => {
       try {
-        const response = await Client.get('/trip/index')
+        const response = await Client.get("/trip/index")
         setTrips(response.data.trips)
 
         const geocodedMarkers = await Promise.all(
@@ -23,7 +23,7 @@ const MapWithPins = () => {
               return {
                 lat: geocodeResult.lat,
                 lng: geocodeResult.lng,
-                name: trip.name
+                name: trip.name,
               }
             }
             return null
@@ -32,8 +32,8 @@ const MapWithPins = () => {
 
         setMarkers(geocodedMarkers.filter((marker) => marker !== null))
       } catch (error) {
-        console.error('Error fetching trips:', error)
-        setError('Failed to fetch trips.')
+        console.error("Error fetching trips:", error)
+        setError("Failed to fetch trips.")
       } finally {
         setLoading(false)
       }
@@ -50,14 +50,14 @@ const MapWithPins = () => {
       )
 
       const data = await response.json()
-      if (data.status === 'OK' && data.results.length > 0) {
+      if (data.status === "OK" && data.results.length > 0) {
         const { lat, lng } = data.results[0].geometry.location
         return { lat, lng }
       } else {
-        console.error('Geocode error:', data.status)
+        console.error("Geocode error:", data.status)
       }
     } catch (error) {
-      console.error('Geocoding failed:', error)
+      console.error("Geocoding failed:", error)
     }
     return null
   }
@@ -94,39 +94,39 @@ const MapWithPins = () => {
 
 const styles = {
   pageContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '20px',
-    backgroundColor: '#e6e3e3',
-    minHeight: '100vh'
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "20px",
+    backgroundColor: "#e6e3e3",
+    minHeight: "100vh",
   },
   heading: {
-    fontSize: '2.5rem',
-    color: '#2c3e50',
-    textAlign: 'center',
-    marginBottom: '20px',
-    fontFamily: "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande'"
+    fontSize: "2.5rem",
+    color: "#2c3e50",
+    textAlign: "center",
+    marginBottom: "20px",
+    fontFamily: "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande'",
   },
   mapContainer: {
-    width: '85%',
-    height: '600px',
-    borderRadius: '10px',
-    boxShadow: '0 6px 15px rgba(0, 0, 0, 0.2)',
-    border: '5px solid #bdc3c7'
+    width: "85%",
+    height: "600px",
+    borderRadius: "10px",
+    boxShadow: "0 6px 15px rgba(0, 0, 0, 0.2)",
+    border: "5px solid #bdc3c7",
   },
   loadingText: {
-    fontSize: '1.5rem',
-    color: '#7f8c8d',
-    textAlign: 'center',
-    fontFamily: "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande'"
+    fontSize: "1.5rem",
+    color: "#7f8c8d",
+    textAlign: "center",
+    fontFamily: "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande'",
   },
   errorText: {
-    fontSize: '1.5rem',
-    color: '#e74c3c',
-    textAlign: 'center',
-    fontFamily: "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande'"
-  }
+    fontSize: "1.5rem",
+    color: "#e74c3c",
+    textAlign: "center",
+    fontFamily: "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande'",
+  },
 }
 
 export default MapWithPins

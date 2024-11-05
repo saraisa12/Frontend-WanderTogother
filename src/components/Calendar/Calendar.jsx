@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import Calendar from 'react-calendar'
-import Client from '../../services/api' // Adjust the path to your API service
-import 'react-calendar/dist/Calendar.css'
-import './Calendar.css' // Import custom styles
+import React, { useEffect, useState } from "react"
+import Calendar from "react-calendar"
+import Client from "../../services/api"
+import "react-calendar/dist/Calendar.css"
+import "./Calendar.css"
 
 const TripCalendar = ({ tripId, onActivityAdded }) => {
   const [dateActivities, setDateActivities] = useState({})
@@ -12,15 +12,14 @@ const TripCalendar = ({ tripId, onActivityAdded }) => {
     const fetchActivities = async () => {
       try {
         const response = await Client.get(`/activity/index/${tripId}`)
-        console.log('API Response:', response.data)
+        console.log("API Response:", response.data)
 
         const activities = response.data.activities
         if (!Array.isArray(activities)) {
-          throw new Error('Expected activities to be an array')
+          throw new Error("Expected activities to be an array")
         }
         const groupedActivities = {}
 
-        // Use map to iterate through activities and push to groupedActivities
         activities.map((activity) => {
           const date = new Date(activity.Date).toDateString()
           if (!groupedActivities[date]) {
@@ -29,11 +28,10 @@ const TripCalendar = ({ tripId, onActivityAdded }) => {
           groupedActivities[date].push(activity.name)
         })
 
-        // Update state with the grouped activities
         setDateActivities(groupedActivities)
-        console.log('Grouped Activities:', groupedActivities) // Log the grouped activities for debugging
+        console.log("Grouped Activities:", groupedActivities)
       } catch (error) {
-        console.error('Error fetching activities:', error)
+        console.error("Error fetching activities:", error)
       }
     }
 

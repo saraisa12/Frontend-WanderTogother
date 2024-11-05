@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import InviteModal from "../InviteModal/InviteModal"
-import Client from "../../services/api" // Assuming you're using this for API requests
+import Client from "../../services/api"
 
 const InviteButton = ({ tripId }) => {
   const [inviteEmail, setInviteEmail] = useState("")
@@ -15,8 +15,6 @@ const InviteButton = ({ tripId }) => {
       })
       setInviteMessage(response.data.message)
       setInviteEmail("")
-
-      // Update invites if necessary
     } catch (error) {
       setInviteMessage(error.response?.data?.message || "Failed to send invite")
     }

@@ -1,10 +1,8 @@
-/* Menu container */
 .menu-container {
   position: relative;
   display: inline-block;
 }
 
-/* Button that shows the three dots */
 .menu-button {
   background: none;
   border: none;
@@ -12,7 +10,6 @@
   cursor: pointer;
 }
 
-/* Dropdown menu */
 .dropdown-menu {
   position: absolute;
   top: 100%;
@@ -26,7 +23,6 @@
   flex-direction: column;
 }
 
-/* Dropdown menu buttons */
 .dropdown-menu button {
   background: none;
   border: none;

@@ -22,7 +22,6 @@ const Album = ({ tripId }) => {
     fetchAlbum()
   }, [tripId])
 
-  // Handle image upload
   const handleUpload = async (e) => {
     const files = e.target.files
     const formData = new FormData()
@@ -38,7 +37,7 @@ const Album = ({ tripId }) => {
         },
       })
       alert("Images uploaded successfully")
-      // Refresh album after upload
+
       const response = await Client.get(`/album/${tripId}`)
       setAlbum(response.data.album)
     } catch (error) {
@@ -53,7 +52,6 @@ const Album = ({ tripId }) => {
     <div className="shared-album">
       <h2>Shared Album for Trip</h2>
 
-      {/* Plus Button to Add Images */}
       <div className="add-images">
         <label htmlFor="image-upload" className="upload-label">
           <div className="plus-sign">+</div>
@@ -69,7 +67,6 @@ const Album = ({ tripId }) => {
         {uploading && <p>Uploading...</p>}
       </div>
 
-      {/* Display Images in the Album */}
       <div className="album-images">
         {album && album.images && album.images.length > 0 ? (
           album.images.map((img, index) => (

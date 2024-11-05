@@ -1,17 +1,16 @@
-import { useRef, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import Client from '../../services/api' // Import the Client instance
-import './AddTrip.css'
+import { useRef, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import Client from "../../services/api"
+import "./AddTrip.css"
 
 const AddTrip = () => {
   const formRef = useRef()
   const navigate = useNavigate()
 
-  // Add class to body for specific background
   useEffect(() => {
-    document.body.classList.add('add-trip-page')
+    document.body.classList.add("add-trip-page")
     return () => {
-      document.body.classList.remove('add-trip-page')
+      document.body.classList.remove("add-trip-page")
     }
   }, [])
 
@@ -21,20 +20,20 @@ const AddTrip = () => {
     const formData = new FormData(formRef.current)
 
     try {
-      const response = await Client.post('/trip/add', formData, {
+      const response = await Client.post("/trip/add", formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          "Content-Type": "multipart/form-data",
+        },
       })
-      console.log('Trip added successfully:', response.data)
+      console.log("Trip added successfully:", response.data)
 
-      formRef.current.reset() // Reset the form
+      formRef.current.reset()
 
-      navigate('/list/trips') // Navigate to the list of trips
+      navigate("/list/trips")
     } catch (error) {
-      console.error('Error adding trip:', error)
+      console.error("Error adding trip:", error)
       alert(
-        'Error adding trip: ' +
+        "Error adding trip: " +
           (error.response ? error.response.data.message : error.message)
       )
     }

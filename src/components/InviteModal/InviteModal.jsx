@@ -10,8 +10,8 @@ const InviteModal = ({
   const [successMessage, setSuccessMessage] = useState(false)
 
   const handleSendClick = () => {
-    handleSendInvite() // Call the invite function
-    setSuccessMessage(true) // Set success message to true after sending the invite
+    handleSendInvite()
+    setSuccessMessage(true)
   }
 
   return (
@@ -39,7 +39,7 @@ const InviteModal = ({
         <button onClick={handleSendClick} className="InviteModelBtn">
           Send Invite
         </button>
-        {/* Show success message if invite was sent */}
+
         {successMessage && (
           <p className="success-message">Invite sent successfully!</p>
         )}

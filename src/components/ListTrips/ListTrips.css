@@ -9,7 +9,7 @@
 
 .trips-header {
   display: flex;
-  justify-content: space-between; /* Updated to better align content */
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 }
@@ -38,9 +38,9 @@
 
 .trips-list {
   display: flex;
-  flex-wrap: wrap; /* Allows items to wrap when needed */
+  flex-wrap: wrap;
   gap: 25px;
-  justify-content: space-between; /* Spacing between items */
+  justify-content: space-between;
 }
 
 .trip-card {
@@ -132,14 +132,12 @@
   }
 
   .trip-card {
-    flex-basis: calc(
-      50% - 25px
-    ); /* For smaller screens, show 2 cards per row */
+    flex-basis: calc(50% - 25px);
   }
 }
 
 @media screen and (max-width: 480px) {
   .trip-card {
-    flex-basis: 100%; /* For extra small screens, show 1 card per row */
+    flex-basis: 100%;
   }
 }
